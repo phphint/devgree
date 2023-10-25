@@ -63,90 +63,105 @@ The menu structure for Devgree.com is meticulously designed to optimize the user
 
 
 
-# React Component Structure
+# React Component Structure for Devgree.com
 
-React components encapsulate self-contained pieces of UI functionality. If we were to break down the link types into React components, here's how they might be structured:
+React components encapsulate UI pieces, allowing for efficient modularity and reusability. Given the design requirements and feedback for Devgree.com, here's the proposed component breakdown:
 
-## Home Page
-- **Component:** `<HomePage />`
+## **1. Home Page**
+- **Component:** 
+  - `<HomePage />`
 
-## User Profile
-- **Component:** `<UserProfile />`
-- **Possible Sub-components:**
+## **2. User Profile**
+- **Component:** 
+  - `<UserProfile />`
+- **Sub-components:** 
   - `<PortfolioSection />`
   - `<CertificationSection />`
   - `<UserBio />`
 
-## Login/Register
-- **Components:**
+## **3. Login/Register**
+- **Components:** 
   - `<Login />`
   - `<Register />`
 
-## User Dashboard
-- **Component:** `<Dashboard />`
-- **Possible Sub-components:**
+## **4. User Dashboard**
+- **Component:** 
+  - `<Dashboard />`
+- **Sub-components:** 
   - `<PortfolioManager />`
   - `<CertificationManager />`
   - `<Settings />`
 
-## Certification Test
-- **Component:** `<CertificationTest />`
-- **Possible Sub-components:**
+## **5. Certification Test**
+- **Main Component:** 
+  - `<CertificationTestLayout />` *(handles overall test UI)*
+- **Sub-components:** 
   - `<Question />`
   - `<Timer />`
   - `<TestResults />`
 
-## Certification Display
-- **Component:** `<CertificationBadge />`
+## **6. Certification Display**
+- **Component:** 
+  - `<CertificationBadge />`
 
-## Directory
-- **Component:** `<Directory />`
-- **Possible Sub-components:**
+## **7. Directory**
+- **Component:** 
+  - `<Directory />`
+- **Sub-components:** 
   - `<DeveloperCard />`
-  - `<DirectoryFilter />`
+  - `<DirectorySearch />` *(handles search filters and can be reused elsewhere)*
 
-## Chat
-- **Component:** `<ChatInterface />`
-- **Possible Sub-components:**
+## **8. Chat Interface**
+- **Component:** 
+  - `<ChatInterface />`
+- **Sub-components:** 
   - `<ChatHeader />`
   - `<ChatMessage />`
   - `<ChatInput />`
 
-## Payment
-- **Component:** `<PaymentPage />`
-- **Possible Sub-components:**
-  - `<BillingInfo />`
-  - `<PaymentSummary />`
+## **9. Payment Process**
+- **Component:** 
+  - `<PaymentPage />`
+- **Sub-components:** 
+  - `<BillingDetails />`
+  - `<PaymentOverview />`
 
-## FAQs/Help
-- **Component:** `<FAQ />`
-- **Possible Sub-components:**
+## **10. FAQs/Help**
+- **Component:** 
+  - `<FAQ />`
+- **Sub-components:** 
   - `<QuestionAnswerPair />`
 
-## About Us
-- **Component:** `<AboutPage />`
+## **11. About Us**
+- **Component:** 
+  - `<AboutPage />`
 
-## Terms of Service & Privacy Policy
-- **Components:**
+## **12. Legal**
+- **Components:** 
   - `<TermsOfService />`
   - `<PrivacyPolicy />`
 
-## Contact Us
-- **Component:** `<ContactForm />`
+## **13. Contact**
+- **Component:** 
+  - `<ContactForm />`
 
-## Blog/Articles
-- **Component:** `<BlogPage />`
-- **Possible Sub-components:**
-  - `<ArticlePreview />`
-  - `<ArticleFullView />`
+## **14. Blog/Content**
+- **Main Component:** 
+  - `<BlogPage />`
+- **Sub-components:** 
+  - `<ArticleSnippet />`
+  - `<CompleteArticleView />`
 
-## Testimonials/Reviews
-- **Component:** `<TestimonialsPage />`
-- **Possible Sub-components:**
-  - `<TestimonialCard />`
+## **15. Testimonials/Feedback**
+- **Component:** 
+  - `<TestimonialsPage />`
+- **Sub-components:** 
+  - `<FeedbackCard />`
 
-## Employer Portal
-- **Component:** `<EmployerDashboard />`
-- **Possible Sub-components:**
-  - `<JobListingForm />`
-  - `<CandidateSearch />`
+## **16. Employer's Space**
+- **Component:** 
+  - `<EmployerDashboard />`
+- **Sub-components:** 
+  - `<JobPostingForm />`
+  - `<PotentialCandidateSearch />`
+
