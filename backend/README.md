@@ -1,61 +1,14 @@
-backend/
-│
-├── controllers/
-│   ├── userController.js
-│   ├── notificationController.js
-│   ├── paymentController.js
-│   ├── chatController.js
-│   ├── ... (other controllers)
-│
-├── models/
-│   ├── userModel.js
-│   ├── notificationModel.js
-│   ├── paymentModel.js
-│   ├── ... (other models)
-│
-├── views/ (typically not used in RESTful APIs, but it's here if you're serving any views server-side)
-│   ├── ... (template files if necessary)
-│
-├── routes/
-│   ├── userRoutes.js
-│   ├── notificationRoutes.js
-│   ├── paymentRoutes.js
-│   ├── chatRoutes.js
-│   ├── ... (other route files)
-│
-├── middleware/
-│   ├── authentication.js
-│   ├── errorHandling.js
-│   ├── rateLimit.js
-│   ├── ... (other middleware files)
-│
-├── utils/
-│   ├── twilioUtils.js
-│   ├── stripeUtils.js
-│   ├── ... (other utility files)
-│
-├── lib/
-│   ├── dockerode/
-│   ├── ... (other library-specific configurations or scripts)
-│
-├── graphql/
-│   ├── schema.js
-│   ├── resolvers/
-│   │   ├── userResolvers.js
-│   │   ├── notificationResolvers.js
-│   │   ├── ... (other resolver files)
-│
-├── config/
-│   ├── database.js
-│   ├── passport.js
-│   ├── ... (other configuration files)
-│
-├── tests/
-│   ├── userTests.js
-│   ├── notificationTests.js
-│   ├── ... (other test files)
-│
-├── node_modules/
-│
-├── package.json
-└── server.js (or app.js or index.js, your main server file)
+# Backend MVC Pattern
+
+The backend for Devgree.com is organized based on the MVC (Model-View-Controller) pattern. Here's a breakdown of the directory structure:
+
+- **models/**: This is where you define your data structures and logic related to the database. In the context of Devgree.com, it's for MongoDB schemas.
+- **views/**: In the context of an API, this is typically unused. However, it's retained in case there's a need to render any views server-side.
+- **controllers/**: This directory will contain the business logic for your routes.
+- **routes/**: Here, you'll define your API endpoints.
+- **middleware/**: This will host functions that execute before the controllers. This can include authentication, error handling, rate limiting, etc.
+- **utils/**: This is for utility functions that might be used across multiple controllers or other parts of your app.
+- **lib/**: Any custom integrations or configurations for third-party libraries would reside here.
+- **graphql/**: Contains all GraphQL related files, given the transition to GraphQL.
+- **config/**: This directory is for configuration files, such as the ones for database connection configurations.
+- **tests/**: All test cases related to the backend will be found here.
