@@ -31,6 +31,7 @@ Core functionalities of Devgree.com encompass:
 - State Management: Redux.
 - Chat Functionality: React Chat UI.
 - SSL Configuration: greenlock-express.
+- ORM: Mongoose (for MongoDB operations and schema validation).
 
 ### 3.2 Back-end:
 - Runtime: Node.js.
