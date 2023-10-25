@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"  # Exposing port 5000 for the backend
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./backend:/app   # Map backend code into container
+    depends_on:
+      - mongodb  # If you also include MongoDB in this setup
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Exposing port 3000 for the frontend (common port for React apps)
+    volumes:
+      - ./frontend:/app   # Map frontend code into container
+    environment:
+      - NODE_ENV=development
+
+  # MongoDB as a service in Docker
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb-data:/data/db  # Changed from named volume to bind mount
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: myAdminUser
+      MONGO_INITDB_ROOT_PASSWORD: securepassword
