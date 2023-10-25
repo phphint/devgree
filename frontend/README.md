@@ -164,4 +164,89 @@ React components encapsulate UI pieces, allowing for efficient modularity and re
 - **Sub-components:** 
   - `<JobPostingForm />`
   - `<PotentialCandidateSearch />`
+ 
+- # Frontend Directory Structure for Devgree.com
+
+## React Components
+React components are organized in a structured manner to ensure modularity and ease of use.
+
+frontend/
+│
+├── src/
+│ │
+│ ├── components/
+│ │ ├── HomePage/
+│ │ │ └── HomePage.jsx
+│ │ │
+│ │ ├── UserProfile/
+│ │ │ ├── UserProfile.jsx
+│ │ │ ├── PortfolioSection.jsx
+│ │ │ ├── CertificationSection.jsx
+│ │ │ └── UserBio.jsx
+│ │ │
+│ │ ├── Auth/
+│ │ │ ├── Login.jsx
+│ │ │ └── Register.jsx
+│ │ │
+│ │ ├── UserDashboard/
+│ │ │ ├── Dashboard.jsx
+│ │ │ ├── PortfolioManager.jsx
+│ │ │ ├── CertificationManager.jsx
+│ │ │ └── Settings.jsx
+│ │ │
+│ │ ├── CertificationTest/
+│ │ │ ├── CertificationTestLayout.jsx
+│ │ │ ├── Question.jsx
+│ │ │ ├── Timer.jsx
+│ │ │ └── TestResults.jsx
+│ │ │
+│ │ ├── Directory/
+│ │ │ ├── Directory.jsx
+│ │ │ ├── DeveloperCard.jsx
+│ │ │ └── DirectorySearch.jsx
+│ │ │
+│ │ ├── ChatInterface/
+│ │ │ ├── ChatInterface.jsx
+│ │ │ ├── ChatHeader.jsx
+│ │ │ ├── ChatMessage.jsx
+│ │ │ └── ChatInput.jsx
+│ │ │
+│ │ ├── Payment/
+│ │ │ ├── PaymentPage.jsx
+│ │ │ ├── BillingDetails.jsx
+│ │ │ └── PaymentOverview.jsx
+│ │ │
+│ │ ├── FAQsHelp/
+│ │ │ ├── FAQ.jsx
+│ │ │ └── QuestionAnswerPair.jsx
+│ │ │
+│ │ ├── AboutUs/
+│ │ │ └── AboutPage.jsx
+│ │ │
+│ │ ├── Legal/
+│ │ │ ├── TermsOfService.jsx
+│ │ │ └── PrivacyPolicy.jsx
+│ │ │
+│ │ ├── Contact/
+│ │ │ └── ContactForm.jsx
+│ │ │
+│ │ ├── Blog/
+│ │ │ ├── BlogPage.jsx
+│ │ │ ├── ArticleSnippet.jsx
+│ │ │ └── CompleteArticleView.jsx
+│ │ │
+│ │ └── Testimonials/
+│ │ ├── TestimonialsPage.jsx
+│ │ └── FeedbackCard.jsx
+│ │
+│ └── EmployerPortal/
+│ ├── EmployerDashboard.jsx
+│ ├── JobPostingForm.jsx
+│ └── PotentialCandidateSearch.jsx
+│
+├── assets/
+│ ├── images/
+│ └── styles/
+│
+└── index.js
 
