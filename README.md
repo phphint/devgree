@@ -11,6 +11,8 @@
 - [Authentication Flow](#authentication-flow)
 - [Deployment Strategy](#deployment-strategy)
 - [Testing Strategy](#testing-strategy)
+- [Error Handling](#error-handling)
+- [Security Measures](#security-measures)
 
 ## Introduction
 Devgree.com is an innovative platform targeting tech enthusiasts. It offers them the capability to showcase portfolios, earn and display tech certifications, and optionally list themselves in a directory for potential employment opportunities.
