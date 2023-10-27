@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import HomePage from './components/HomePage/HomePage.jsx';
+import AboutPage from './components/AboutUs/AboutPage';
+import PrivacyPage from './components/Legal/PrivacyPolicy'; // assuming you have these components
+import TermsPage from './components/Legal/TermsOfService'; // assuming you have these components
+import FeaturesPage from './components/Features/FeaturesPage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edited <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="min-h-screen flex flex-col bg-dark text-white">
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/privacy" element={<PrivacyPage />} />
+                    <Route path="/terms" element={<TermsPage />} />
+                    <Route path="/features" element={<FeaturesPage />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
