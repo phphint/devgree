@@ -6,6 +6,8 @@ import Navbar from '.././Navbar';
 import Banner from '.././Banner';
 import RegSection from '.././RegSection';
 import Footer from '.././Footer';
+import FeaturesSection from ".././Features/FeaturesSection";
+
 
 const HomePage = () => {
     return (
@@ -14,14 +16,15 @@ const HomePage = () => {
             <Helmet>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="description" content="Devgree - The future of tech portfolios and certifications. Create your personalized portfolio page for free today and stay tuned for our upcoming certifications feature." />
-                <title>Devgree - Your Free Tech Portfolio Space & Future of Certifications</title>
+                <meta name="description" content="Devgree - The future of tech portfolios and AI-powered skills assessments. Create your personalized portfolio page for free today and enhance your profile with our skills assessments." />
+                <title>Devgree - Your Free Tech Portfolio Space & AI-Powered Skills Assessments</title>
                 {/* Add other meta tags or head elements if needed */}
             </Helmet>
 
-            <div className="min-h-screen flex flex-col bg-dark text-white">
+            <div className="min-vh-100 flex flex-col bg-dark text-white">
                 <Navbar />
                 <Banner />
+              <FeaturesSection />
                 <RegSection />
                 <Footer />
             </div>

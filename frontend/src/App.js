@@ -1,25 +1,41 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// App.js 
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { Provider } from 'react-redux'; // Import Provider from react-redux
+import store from './store/store'; // Import store from your store.js file
 
-import HomePage from './components/HomePage/HomePage.jsx';
-import AboutPage from './components/AboutUs/AboutPage';
-import PrivacyPage from './components/Legal/PrivacyPolicy'; // assuming you have these components
-import TermsPage from './components/Legal/TermsOfService'; // assuming you have these components
-import FeaturesPage from './components/Features/FeaturesPage';
+
+
+import WebsiteRoutes from './components/WebsiteRoutes';
+import DashboardRoutes from './components/DashboardRoutes';
+
+
+
+function Content() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return (
+        <div className="min-h-screen flex flex-col bg-dark text-white">
+            <Routes>
+            <Route path="/*" element={<WebsiteRoutes />} />
+                    <Route path="/dashboard/*" element={<DashboardRoutes />} />
+
+            </Routes>
+        </div>
+    );
+}
 
 function App() {
     return (
-        <Router>
-            <div className="min-h-screen flex flex-col bg-dark text-white">
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/about" element={<AboutPage />} />
-                    <Route path="/privacy" element={<PrivacyPage />} />
-                    <Route path="/terms" element={<TermsPage />} />
-                    <Route path="/features" element={<FeaturesPage />} />
-                </Routes>
-            </div>
-        </Router>
+        <Provider store={store}> {/* Wrap your app with the Provider and pass the store as a prop */}
+            <Router>
+                <Content />
+            </Router>
+        </Provider>
     );
 }
 

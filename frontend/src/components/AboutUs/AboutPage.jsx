@@ -2,14 +2,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 // Import the components
-import Navbar from '.././Navbar';
-import Footer from '.././Footer';
-import RegSection from '.././RegSection';
-
+import Navbar from '../Navbar';
+import Footer from '../Footer';
+import RegSection from '../RegSection';
 
 const AboutPage = () => {
     return (
-        // React Fragment
         <>
             <Helmet>
                 <meta charSet="utf-8" />
@@ -22,29 +20,29 @@ const AboutPage = () => {
             <div className="min-h-screen flex flex-col bg-dark text-white">
                 <Navbar />
 
-                {/* Updated section with flexbox properties */}
                 <section className="flex-grow-1 d-flex flex-column justify-content-center p-5 bg-white text-dark">
-        <div className="container">
-            <h2 className="mb-4">About Devgree</h2>
-            <p className="lead">
-                At Devgree, our mission is to empower tech professionals around the world. We believe that showcasing one's skills, projects, and accomplishments should be straightforward, modern, and free.
-            </p>
-            <p>
-                In today's digital age, having a strong online presence is essential for tech professionals. Devgree provides a platform where developers can create a personalized portfolio, showcasing their projects and skills in an elegant and professional manner.
-            </p>
-            <p>
-                But we're not just about portfolios. We're looking forward to the future, aiming to integrate a certifications feature that will revolutionize how tech professionals showcase their expertise.
-            </p>
-            <p>
-                Born out of a passion for technology and a vision for a more connected and skilled tech community, Devgree is more than just a platform; it's a movement. Join us in reshaping the future of tech portfolios and certifications.
-            </p>
-        </div>
-    </section>
-    <RegSection />
+                    <div className="container">
+                        <h2 className="mb-4">About Devgree</h2>
+                        <p>
+                            At Devgree, we believe in empowering tech professionals to showcase their skills, projects, and achievements in a way that truly reflects their personal brand and professional journey. Our platform is thoughtfully designed to provide an innovative solution for tech professionals looking to differentiate themselves in the competitive tech industry.
+                        </p>
+                        <p>
+                            Our AI-Powered Skills Assessment feature is a testament to our commitment to innovation. By utilizing cutting-edge AI technology, we provide an objective and accurate measure of your technical proficiency, giving you the confidence to showcase your skills to potential employers or clients.
+                        </p>
+                        <p>
+                            In addition to our unique features, we prioritize user privacy and control. Our platform gives you the flexibility to decide which parts of your portfolio are public, private, or accessible only via a shared link. This level of customization ensures that you have full control over how you present yourself to the world.
+                        </p>
+                        <p>
+                            At Devgree, we are constantly evolving and adapting to the needs of the tech community. We are proud to be at the forefront of the tech portfolio revolution, and we are excited to support you in your journey to achieving professional excellence.
+                        </p>
+                    </div>
+                </section>
+
+                <RegSection />
                 <Footer />
             </div>
         </>
     );
 }
 
-export default AboutPage;
+export default AboutPage

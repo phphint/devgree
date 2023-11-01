@@ -9,10 +9,14 @@ services:
       - "5001:5000"  # Exposing port 5000 for the backend
     environment:
       - NODE_ENV=development
+      - MONGO_HOST=mongodb   # Assuming 'mongodb' is the service name of your MongoDB container
+      - MONGO_PORT=27017
+      - MONGO_USER=myAdminUser
+      - MONGO_PASS=securepassword
     volumes:
       - ./backend:/app   # Map backend code into container
     depends_on:
-      - mongodb  # If you also include MongoDB in this setup
+      - mongodb  # include MongoDB in this setup
 
   frontend:
     build:
