@@ -1,3 +1,5 @@
+
+// index.js
 const express = require('express');
 const passport = require('passport');
 require('./config/passport'); // or wherever you set up passport
@@ -6,24 +8,63 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes'); 
 const cors = require('cors'); // Import the cors package
 
+const jwt = require('jsonwebtoken');
+const   ExtractJwt = require('passport-jwt').ExtractJwt;
+
+
+
 const session = require('express-session');
 
 const app = express();
 
-app.use(session({
-    secret: '7eefdc274d0c24c2ae3af303d7a099888449da8fcd368efa7bd82c2859813a68',
-    resave: false,
-    saveUninitialized: false,
-}));
+//app.use(session({
+//    secret: '7eefdc274d0c24c2ae3af303d7a099888449da8fcd368efa7bd82c2859813a68',
+//    resave: false,
+//   saveUninitialized: false,
+//}));
 
 const PORT = process.env.PORT || 5000;
+
+function checkTokenExpiration(req, res, next) {
+    const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+    
+    // Decode the token without verifying - this is safe since we're not using the decoded information
+    // to make any security-related decisions. We're only using it to check the expiration.
+    const decoded = jwt.decode(token, { complete: true });
+
+    if (decoded) {
+        const exp = decoded.payload.exp;
+        if (typeof exp === 'number') {
+            // Convert the expiration time from seconds to a Date object
+            const expirationDate = new Date(exp * 1000);
+            console.log('Token expires at:', expirationDate);
+
+            // Check if the token has expired
+            if (exp < Date.now() / 1000) {
+                return res.status(401).json({ message: 'Token has expired' });
+            }
+        } else {
+            console.log('No valid expiration claim found in token:', decoded);
+          //  return res.status(400).json({ message: 'Invalid token: No expiration claim' });
+        }
+    } else {
+       // console.log('No token could be decoded from the request:', token);
+       // return res.status(400).json({ message: 'Invalid or missing token' });
+    }
+
+    next();
+}
+
+
+
+
 
 app.use(cors()); // Use the cors middleware to allow all origins. Place this line before other middlewares and routes.
 
 app.use(express.json());
 
 app.use(passport.initialize());
-app.use(passport.session()); // If you're using sessions
+//app.use(passport.session()); // If you're using sessions
 
 // Build the MONGO_URI from the separate environment variables
 const MONGO_HOST = process.env.MONGO_HOST;
@@ -50,7 +91,8 @@ mongoose.connect(MONGO_URI, {
     process.exit(1);
 });
 
-app.use('/api', authRoutes);
+app.use('/api', checkTokenExpiration, authRoutes);
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

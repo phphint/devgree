@@ -1,6 +1,9 @@
+// passport.js
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy, ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
@@ -44,6 +47,34 @@ passport.use(new GoogleStrategy({
         done(err);
     }
 }));
+
+// Setup options for JWT Strategy
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: '7eefdc274d0c24c2ae3af303d7a099888449da8fcd368efa7bd82c2859813a68' // You should use a secret key from your environment variables
+};
+
+// Create JWT strategy
+passport.use(new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
+    console.log('JWT payload received:', jwt_payload);
+    try {
+        console.log('Looking for user with ID:', jwt_payload.userId);
+        const user = await User.findById(jwt_payload.userId);
+        console.log('User found:', user);
+
+        if (!user) {
+            console.error('No user associated with this ID.');
+            return done(null, false);
+        }
+
+        // Otherwise, return the user
+        return done(null, user);
+    } catch (error) {
+        console.error('Error in JWT strategy:', error);
+        done(error, false);
+    }
+}));
+
 
 // Serialize and deserialize user instances to and from the session
 passport.serializeUser((user, done) => {

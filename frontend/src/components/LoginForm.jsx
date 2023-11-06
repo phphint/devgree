@@ -1,3 +1,5 @@
+// Location: /src/components/LoginForm.jsx
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -22,7 +24,7 @@ const LoginForm = ({ handleClose }) => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5001/api/login', {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
                 email,
                 password
             });

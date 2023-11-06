@@ -1,3 +1,4 @@
+//  User.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -14,7 +15,10 @@ const userSchema = new mongoose.Schema({
     profile: {
         fullName: String,  // Combined first and last name
         profilePicture: String,
-        bio: String,
+        bio: {
+            type: String,
+            maxlength: [2000, 'The bio cannot exceed 2000 characters'] // Sets a limit of 200 characters with a custom error message
+        },
         coverImage: String
     },
     settings: {

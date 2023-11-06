@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './DashboardTemplate.module.css'; // Import CSS module
 
-import TopNav from './TopNav';
+import TopNav from './TopNav/index.js';
 import SideNav from './SideNav';
 import Footer from '../Footer';
 

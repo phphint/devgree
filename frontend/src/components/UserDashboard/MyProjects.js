@@ -1,7 +1,7 @@
 // MyProjects.js
 import React from 'react';
 
-import TopNav from './TopNav';
+import TopNav from './TopNav/index';
 import SideNav from './SideNav';
 import Footer from '../Footer';
 

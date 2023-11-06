@@ -28,6 +28,7 @@ services:
       - ./frontend:/app   # Map frontend code into container
     environment:
       - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:5001/api  # Pointing to the backend service
 
   # MongoDB as a service in Docker
   mongodb:

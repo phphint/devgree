@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 
 import Dashboard from './UserDashboard/Dashboard';
-import CertificationsBadges from './UserDashboard/CertificationsBadges';
+import Certifications from './UserDashboard/Certifications';
 import Settings from './UserDashboard/Settings';
 
 import SkillEndorsements from './UserDashboard/SkillEndorsements';
@@ -30,10 +30,10 @@ function DashboardRoutes() {
         }
       />
       <Route
-        path="/certifications-badges"
+        path="/certifications"
         element={
           <ProtectedRoute>
-            <CertificationsBadges />
+            <Certifications />
           </ProtectedRoute>
         }
       />
@@ -71,7 +71,7 @@ function DashboardRoutes() {
         }
       />
       <Route
-        path="/help-support"
+        path="/help"
         element={
           <ProtectedRoute>
             <HelpSupport />
@@ -87,7 +87,7 @@ function DashboardRoutes() {
         }
       />
       <Route
-        path="/my-profile"
+        path="/profile"
         element={
           <ProtectedRoute>
             <MyProfile />
@@ -111,7 +111,7 @@ function DashboardRoutes() {
         }
       />
       <Route
-        path="/portfolio-analytics"
+        path="//portfolio-analytics"
         element={
           <ProtectedRoute>
             <PortfolioAnalytics />
