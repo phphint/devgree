@@ -3,7 +3,7 @@ import React from 'react';
 const NotificationsMenu = () => {
   return (
     
-       <div className="nav-item dropdown">
+       <div className="nav-item dropdown flex-nowrap">
        <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
          <i className="fa fa-bell me-lg-2"></i>
          <span className="d-none d-lg-inline-flex">Notification</span>

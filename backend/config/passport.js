@@ -51,7 +51,7 @@ passport.use(new GoogleStrategy({
 // Setup options for JWT Strategy
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: '7eefdc274d0c24c2ae3af303d7a099888449da8fcd368efa7bd82c2859813a68' // You should use a secret key from your environment variables
+    secretOrKey: process.env.JWT_SECRET // Use environment variable for the secret key
 };
 
 // Create JWT strategy

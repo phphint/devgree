@@ -1,5 +1,5 @@
 # Use a specific version of node
-FROM node:18-slim
+FROM node:20.9.0-slim
 
 WORKDIR /app 
 

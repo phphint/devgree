@@ -2,7 +2,9 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux'; // Import Provider from react-redux
-import store from './store/store'; // Import store from your store.js file
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store/store'; // Make sure to import persistor here
+
 
 
 
@@ -31,10 +33,12 @@ function Content() {
 
 function App() {
     return (
-        <Provider store={store}> {/* Wrap your app with the Provider and pass the store as a prop */}
-            <Router>
-                <Content />
-            </Router>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <Router>
+                    <Content />
+                </Router>
+            </PersistGate>
         </Provider>
     );
 }

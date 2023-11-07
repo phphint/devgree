@@ -2,7 +2,7 @@ import React from 'react';
 
 const MessagesMenu = () => {
   return (
-    <div className="navbar-nav align-items-center ms-auto">
+    <div className="navbar-nav align-items-center ms-auto flex-nowrap">
     {/* Messages Dropdown */}
     <div className="nav-item dropdown">
       <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">

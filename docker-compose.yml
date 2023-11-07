@@ -13,6 +13,9 @@ services:
       - MONGO_PORT=27017
       - MONGO_USER=myAdminUser
       - MONGO_PASS=securepassword
+      - JWT_SECRET=7eefdc274d0c24c2ae3af303d7a099888449da8fcd368efa7bd82c2859813a68 # Your JWT secret key
+      - MINIO_ACCESS_KEY=minioadminuser
+      - MINIO_SECRET_KEY=minioadminpass
     volumes:
       - ./backend:/app   # Map backend code into container
     depends_on:
@@ -29,6 +32,8 @@ services:
     environment:
       - NODE_ENV=development
       - REACT_APP_API_URL=http://localhost:5001/api  # Pointing to the backend service
+      - REACT_APP_S3_BASE_URL=http://localhost:9000  # The new S3 URL variable
+
 
   # MongoDB as a service in Docker
   mongodb:
@@ -40,3 +45,18 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: myAdminUser
       MONGO_INITDB_ROOT_PASSWORD: securepassword
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ROOT_USER: minioadminuser    # Default: minioadmin
+      MINIO_ROOT_PASSWORD: minioadminpass # Default: minioadmin
+    volumes:
+      - ./minio-data:/data
+    command: server /data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3

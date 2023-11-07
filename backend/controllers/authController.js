@@ -42,12 +42,27 @@ exports.forgotPassword = async (req, res) => {
 
 
 exports.login = async (req, res) => {
-
     if (!req.user) {
         return res.status(401).send({ message: req.authInfo.message });
     }
-    const token = jwt.sign({ userId: req.user._id }, '7eefdc274d0c24c2ae3af303d7a099888449da8fcd368efa7bd82c2859813a68'); // Replace 'YOUR_SECRET_KEY' with your actual secret key
-    res.send({ token });
+
+    // Find the user's details from the database
+    const user = await User.findById(req.user._id).select('profile.fullName profile.profilePicture');
+
+    // Ensure the user was found
+    if (!user) {
+        return res.status(404).send({ message: 'User not found' });
+    }
+
+    // Sign the JWT token with the user's ID
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+
+    // Send the response including the token, full name, and profile picture
+    res.send({
+        token,
+        fullName: user.profile.fullName,
+        profilePicture: user.profile.profilePicture
+    });
 };
 
 exports.googleCallback = async (req, res) => {
@@ -57,12 +72,26 @@ exports.googleCallback = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
+    console.log('Register endpoint hit with request body:', req.body);
+
     try {
         const user = new User(req.body);
+        console.log('Attempting to save user:', user);
+
         await user.save();
+        console.log('User registered successfully:', user);
+
         res.send({ message: 'User registered successfully' });
     } catch (error) {
-        res.status(500).send({ message: 'Registration error' });
+        if (error.code === 11000) { // MongoDB duplicate key error code
+            res.status(400).send({ message: 'Email already exists' });
+        } else {
+            console.error('Registration error:', error);
+            console.error(error.stack);
+
+            res.status(500).send({ message: 'Registration error', error: error.message });
+        }
     }
 };
+
 

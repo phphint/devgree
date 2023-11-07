@@ -16,7 +16,7 @@ const SideNav = () => {
   return (
     <nav
       id="sidebarMenu"
-      className="min-vh-100 col-md-3 col-lg-2 d-md-block sidebar collapse"
+      className="min-vh-100 col-md-3 col-lg-2 d-md-block sidebar collapse bg-dark text-white"
     >
       <div className="position-sticky pt-3">
         <ul className="nav flex-column">

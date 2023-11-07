@@ -32,8 +32,13 @@ const LoginForm = ({ handleClose }) => {
             const { token } = response.data;
             localStorage.setItem('authToken', token);
         
-            dispatch(login(token)); // Dispatch the login action with the token
-            setSuccessMessage("Logged in successfully!"); // Set success message on successful login
+            dispatch(login({
+                token: response.data.token,
+                fullName: response.data.fullName,
+                profilePicture: response.data.profilePicture
+              }));
+              
+              setSuccessMessage("Logged in successfully!"); // Set success message on successful login
         
             document.querySelector('.modal button.btn-close').click();
           navigate('/dashboard'); // Redirect to /dashboard on successful login

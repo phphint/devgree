@@ -1,40 +1,51 @@
 import React, { useState } from "react";
 
 const RegForm = () => {
-  const [fullName, setFullName] = useState(""); // Add this line
-  const [email, setEmail] = useState(""); // Add this line
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null); // State for success message
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // Clear any existing messages
+    setErrorMessage(null);
+    setSuccessMessage(null);
 
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match!");
       return;
     }
 
+    const user = {
+      email,
+      password,
+      profile: {
+        fullName, // This places fullName inside the profile object, as expected by your Mongoose model.
+      },
+    };
+
     try {
-      // Send registration data to the backend
       const response = await fetch("http://localhost:5001/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          fullName,
-          email,
-          password,
-        }),
+        body: JSON.stringify(user), // Send the structured user object
+
       });
 
       const data = await response.json();
 
-      if (data.error) {
-        setErrorMessage(data.message);
+      if (response.ok) {
+        // Handle success
+        setSuccessMessage(data.message || "Registered successfully!"); // Set success message
+        document.querySelector('.modal button.btn-close').click();
+
       } else {
-        // Handle success (maybe redirect to login or show a success message)
+        setErrorMessage(data.message || "Registration failed. Please try again.");
       }
     } catch (error) {
       console.error("Failed to register:", error);
@@ -43,17 +54,20 @@ const RegForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="p-4 p-md-5 border rounded-3 bg-light text-dark"
-    >
+    <form onSubmit={handleSubmit} className="p-4 p-md-5 border rounded-3 bg-light text-dark">
       {errorMessage && (
         <div className="alert alert-danger" role="alert">
           {errorMessage}
         </div>
       )}
-      {/* Full Name Field */}
-      <div className="form-floating mb-3">
+      {successMessage && (
+        <div className="alert alert-success" role="alert"> {/* Bootstrap class for success */}
+          {successMessage}
+        </div>
+      )}
+      {/* ... rest of the form fields ... */}
+           {/* Full Name Field */}
+           <div className="form-floating mb-3">
         <input
           type="text"
           className="form-control"
