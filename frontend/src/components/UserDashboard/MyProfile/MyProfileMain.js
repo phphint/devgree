@@ -1,8 +1,13 @@
 // MyProfileMain.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { updateProfile } from "../../../reducers/authSlice"; // Make sure you import the new action
 
 const MyProfileMain = () => {
+
+    const dispatch = useDispatch();
+    
   const [profileData, setProfileData] = useState({
     fullName: "",
     profilePicture: "",
@@ -58,14 +63,13 @@ const MyProfileMain = () => {
       formData.append("profilePicture", selectedFile);
     }
 
-      // Append other fields
-  formData.append("roleTitle", profileData.roleTitle);
-  formData.append("location", profileData.location);
-  formData.append("phone", profileData.phone);
+    // Append other fields
+    formData.append("roleTitle", profileData.roleTitle);
+    formData.append("location", profileData.location);
+    formData.append("phone", profileData.phone);
 
-  // Convert videoIntro object into a JSON string
-  formData.append("videoIntro", JSON.stringify(profileData.videoIntro));
-
+    // Convert videoIntro object into a JSON string
+    formData.append("videoIntro", JSON.stringify(profileData.videoIntro));
 
     try {
       const response = await axios.put(
@@ -79,6 +83,14 @@ const MyProfileMain = () => {
         }
       );
       // Handle success...
+      // Dispatch action to update Redux store
+      dispatch(
+        updateProfile({
+          fullName: response.data.profile.fullName,
+          profilePicture: response.data.profile.profilePicture,
+        })
+      );
+      // ... any other success handling
     } catch (error) {
       console.error("Error updating profile:", error);
       // Handle error...
@@ -110,7 +122,7 @@ const MyProfileMain = () => {
 
   return (
     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-white text-dark ">
-      <h2>Profile</h2>
+      <h2 className="pt-3">Profile</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="fullName" className="form-label">
@@ -239,7 +251,7 @@ const MyProfileMain = () => {
 
         {/* ... rest of the form ... */}
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mb-3">
           Update Profile
         </button>
       </form>

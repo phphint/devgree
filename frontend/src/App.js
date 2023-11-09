@@ -10,6 +10,10 @@ import { store, persistor } from './store/store'; // Make sure to import persist
 
 import WebsiteRoutes from './components/WebsiteRoutes';
 import DashboardRoutes from './components/DashboardRoutes';
+ 
+ 
+import UserPortfolioRoutes from './components/UserPortfolioRoutes';
+
 
 
 
@@ -25,6 +29,8 @@ function Content() {
             <Routes>
             <Route path="/*" element={<WebsiteRoutes />} />
                     <Route path="/dashboard/*" element={<DashboardRoutes />} />
+                    <Route path="/portfolio/*" element={<UserPortfolioRoutes />} />
+
 
             </Routes>
         </div>

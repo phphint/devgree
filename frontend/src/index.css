@@ -1,2 +1,14 @@
 
 @import 'bootstrap/dist/css/bootstrap.min.css';
+@media (max-width: 767.98px) {
+    .navbar-nav {
+      flex-direction: row !important;
+    }
+  }
+  /* Custom CSS */
+@media (max-width: 767.98px) { /* for small devices */
+    .navbar .dropdown-toggle::after {
+      margin-right: 0.5rem; /* Adjust as needed */
+    }
+  }
+  

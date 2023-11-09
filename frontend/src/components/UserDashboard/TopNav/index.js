@@ -7,7 +7,7 @@ import AvatarMenu from './AvatarMenu';
 const TopNav = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-md bg-dark navbar-dark text-white sticky-top px-4 py-0 flex-nowrap">
+      <nav className="navbar navbar-expand-sm bg-dark navbar-dark text-white sticky-top px-4 py-0 flex-nowrap">
         <Link className="navbar-brand d-flex me-4" to="/">
           <h2 className="mb-0"><i className="fa fa-hashtag"></i>Devgree</h2>
         </Link>
