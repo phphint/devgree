@@ -1,6 +1,9 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import PortfolioFooter from './PortfolioFooter';
+import React from "react";
+import { useSelector } from "react-redux";
+import PortfolioFooter from "./PortfolioFooter";
+import PortfolioNavbar from "./PortfolioNavbar";
+import PortfolioHeader from "./PortfolioHeader";
+import PortfolioMain from "./PortfolioMain";
 
 const UserPortfolioView = () => {
   const portfolioData = useSelector((state) => state.userPortfolio.data);
@@ -17,11 +20,26 @@ const UserPortfolioView = () => {
     );
   }
 
+  const prettyData = JSON.stringify(portfolioData, null, 2);
+  if (portfolioData) {
+    if (portfolioData.isPrivate) {
+      return (
+        <div className="d-flex justify-content-center align-items-center vh-100 bg-dark text-white">
+          <div className="alert alert-warning" role="alert">
+            {portfolioData.message ||
+              "This portfolio is private but you are the owner, all fields are only visible to you while logged in."}
+          </div>
+          <pre>{prettyData}</pre>
+        </div>
+      );
+    }
+  }
+
   if (error) {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100 bg-dark text-white">
         <div className="alert alert-danger" role="alert">
-          {error.message || 'This portfolio is private.'}
+          {error.message || "This portfolio is private."}
         </div>
       </div>
     );
@@ -36,17 +54,18 @@ const UserPortfolioView = () => {
       </div>
     );
   }
-  const prettyData = JSON.stringify(portfolioData, null, 2);
 
   // If there's data, render the portfolio view
   return (
     <>
-    <div className="container">
-      {/* Your portfolio data rendering logic */}
-      <pre>{prettyData}</pre>
+      <div className="container">
+        <PortfolioNavbar />
+        <PortfolioHeader />
+        <PortfolioMain />
+        {/* Your portfolio data rendering logic */}
      
-    </div> 
-    <PortfolioFooter />
+      </div>
+      <PortfolioFooter />   <pre>{prettyData}</pre>
     </>
   );
 };

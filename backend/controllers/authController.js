@@ -47,7 +47,7 @@ exports.login = async (req, res) => {
     }
 
     // Find the user's details from the database
-    const user = await User.findById(req.user._id).select('profile.fullName profile.profilePicture');
+    const user = await User.findById(req.user._id).select('profile.fullName profile.profilePicture email');
 
     // Ensure the user was found
     if (!user) {
@@ -61,7 +61,9 @@ exports.login = async (req, res) => {
     res.send({
         token,
         fullName: user.profile.fullName,
-        profilePicture: user.profile.profilePicture
+        profilePicture: user.profile.profilePicture,
+        email: user.email
+    
     });
 };
 

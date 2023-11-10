@@ -35,7 +35,8 @@ const LoginForm = ({ handleClose }) => {
             dispatch(login({
                 token: response.data.token,
                 fullName: response.data.fullName,
-                profilePicture: response.data.profilePicture
+                profilePicture: response.data.profilePicture,
+                email: response.data.email, 
               }));
               
               setSuccessMessage("Logged in successfully!"); // Set success message on successful login

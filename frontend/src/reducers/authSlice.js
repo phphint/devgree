@@ -6,6 +6,7 @@ const initialState = {
   token: null,
   fullName: "",
   profilePicture: "",
+  email: "",
 };
 
 const authSlice = createSlice({
@@ -14,11 +15,12 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       // Assuming action.payload is an object with token, fullName, and profilePicture
-      const { token, fullName, profilePicture } = action.payload;
+      const { token, fullName, profilePicture, email } = action.payload;
       localStorage.setItem("authToken", token); // Save the token to localStorage
       state.token = token; // Update the token in the state
       state.fullName = fullName; // Update the full name in the state
       state.profilePicture = profilePicture; // Update the profile picture in the state
+      state.email = email; // Update the email in the state
       state.isLoggedIn = true; // Set the login state to true
     },
     logout: (state) => {
