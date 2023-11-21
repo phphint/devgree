@@ -4,7 +4,6 @@ backend/node_modules/
 
 # Data directories
 mongodb-data/
-minio-data/
 
 # System files
 .DS_Store
