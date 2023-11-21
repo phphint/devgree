@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import ContactForm from './Contact/ContactForm'; // Assuming ContactForm is in the same directory.
 import Copyright from './Copyright';
 
+
 const Footer = () => {
     return (
         <footer className="bg-gray-900 text-white py-3">
+
+    
             <div className=" d-flex justify-content-between me-5 ms-5 ">
                 <div>
                     {/* Using the Link component for internal app navigation */}
@@ -18,7 +21,7 @@ const Footer = () => {
                 <Copyright />
 
                 {/* Contact Form Modal */}
-                <div className="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+                <div className="modal fade" id="contactModal" tabIndex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -32,6 +35,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+       
         </footer>
     );
 }

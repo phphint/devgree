@@ -5,57 +5,58 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    mem_limit: 256M
+    mem_limit: 512M
     ports:
-      - "5001:5000"  # Exposing port 5000 for the backend
+      - "5001:5000"
     environment:
-      - NODE_ENV=development
-      - MONGO_HOST=mongodb   # Assuming 'mongodb' is the service name of your MongoDB container
-      - MONGO_PORT=27017
-      - MONGO_USER=myAdminUser
-      - MONGO_PASS=securepassword
-      - JWT_SECRET=7eefdc274d0c24c2ae3af303d7a099888449da8fcd368efa7bd82c2859813a68 # Your JWT secret key
-      - MINIO_ACCESS_KEY=minioadminuser
-      - MINIO_SECRET_KEY=minioadminpass
+      - NODE_ENV
+      - MONGO_HOST
+      - MONGO_PORT
+      - MONGO_USER
+      - MONGO_PASS
+      - JWT_SECRET
+      - MINIO_ACCESS_KEY
+      - MINIO_SECRET_KEY
+      - OPENAI_API_KEY
     volumes:
-      - ./backend:/app   # Map backend code into container
+      - ./backend:/app
     depends_on:
-      - mongodb  # include MongoDB in this setup
+      - mongodb
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    mem_limit: 256M
+    mem_limit: 2048M
+    user: "1000:1000"
     ports:
-      - "3000:3000"  # Exposing port 3000 for the frontend (common port for React apps)
+      - "3000:3000"
     volumes:
-      - ./frontend:/app   # Map frontend code into container
+      - ./frontend:/app
     environment:
       - NODE_ENV=development
-      - REACT_APP_API_URL=http://localhost:5001/api  # Pointing to the backend service
-      - REACT_APP_S3_BASE_URL=http://localhost:9000  # The new S3 URL variable
+      - REACT_APP_API_URL
+      - REACT_APP_S3_BASE_URL
 
-
-  # MongoDB as a service in Docker
   mongodb:
     image: mongo:latest
-    mem_limit: 256M
+    mem_limit: 128M
     ports:
       - "27017:27017"
     volumes:
-      - ./mongodb-data:/data/db  # Changed from named volume to bind mount
+      - ./mongodb-data:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: myAdminUser
-      MONGO_INITDB_ROOT_PASSWORD: securepassword
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+
   minio:
     image: minio/minio:latest
-    mem_limit: 256M
+    mem_limit: 128M
     ports:
       - "9000:9000"
     environment:
-      MINIO_ROOT_USER: minioadminuser    # Default: minioadmin
-      MINIO_ROOT_PASSWORD: minioadminpass # Default: minioadmin
+      - MINIO_ROOT_USER
+      - MINIO_ROOT_PASSWORD
     volumes:
       - ./minio-data:/data
     command: server /data
@@ -64,3 +65,12 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+
+  redis:
+    image: redis:latest
+    mem_limit: 128M
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data
+    command: redis-server --appendonly yes

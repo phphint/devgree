@@ -1,0 +1,64 @@
+{
+  "resume": {
+    "personalDetails": {
+      "phone": "String",
+      "location": "String"
+    },
+    "education": [
+      {
+        "institution": "String",
+        "degree": "String",
+        "fieldOfStudy": "String",
+        "startDate": "Date",
+        "endDate": "Date",
+        "description": "String"
+      }
+    ],
+    "workExperience": [
+      {
+        "company": "String",
+        "title": "String",
+        "location": "String",
+        "startDate": "Date",
+        "endDate": "Date",
+        "current": {
+          "type": "Boolean",
+          "default": false
+        },
+        "description": "String"
+      }
+    ],
+    "skills": [
+      {
+        "name": "String"
+      }
+    ],
+    "projects": [
+      {
+        "title": "String",
+        "description": "String",
+        "role": "String",
+        "technologies": ["String"],
+        "startDate": "Date",
+        "endDate": "Date",
+        "url": "String"
+      }
+    ],
+    "certifications": [
+      {
+        "name": "String",
+        "authority": "String",
+        "dateObtained": "Date",
+        "validUntil": "Date",
+        "credentialID": "String",
+        "credentialURL": "String"
+      }
+    ],
+    "languages": [
+      {
+        "language": "String",
+        "proficiency": "String"
+      }
+    ]
+  }
+}

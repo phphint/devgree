@@ -31,7 +31,7 @@ const professionalDevelopmentSchema = new mongoose.Schema({
       default: false,
     },
     certification: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Achievement",
         required: false // Make it optional, as not all professional development activities will have a certification
       },
@@ -39,10 +39,6 @@ const professionalDevelopmentSchema = new mongoose.Schema({
 
 // Resume subdocument schema
 const resumeSchema = new mongoose.Schema({
-  objective: {
-    type: String,
-    maxlength: [1000, "The objective cannot exceed 1000 characters"],
-  },
   education: [
     {
       institution: String,
@@ -68,28 +64,36 @@ const resumeSchema = new mongoose.Schema({
     },
   ],
   // Reuse the 'skills' array from the user model
-  skills: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skill" }],
-    default: [],
-  },
-  // Reuse the 'projects' array from the user model
-  projects: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Project" }],
-    default: [],
-  },
-  // Reuse the 'achievements' array from the user model for certifications
-  certifications: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Achievement" }],
-    default: [],
-  },
-  volunteerWork: [
+  skills: [
     {
-      organization: String,
+      name: String,
+      level: String, // e.g., Beginner, Intermediate, Expert
+      yearsOfExperience: Number,
+    },
+  ],
+  // Reuse the 'projects' array from the user model
+  projects: [
+    {
+      title: String,
+      description: String,
       role: String,
-      cause: String, // e.g., Environment, Human Rights, Education
+      technologies: [String],
       startDate: Date,
       endDate: Date,
-      description: String,
+      url: String,
+      // Add any other fields relevant to your projects here
+    },
+  ],
+
+  certifications: [
+    {
+      name: String,
+      authority: String,
+      dateObtained: Date,
+      validUntil: Date,
+      credentialID: String,
+      credentialURL: String,
+      // Add any other fields relevant to your certifications here
     },
   ],
   languages: [
@@ -98,7 +102,6 @@ const resumeSchema = new mongoose.Schema({
       proficiency: String, // e.g., Native, Fluent, Professional, Elementary
     },
   ],
-  interests: [String], // e.g., Chess, Programming, Blogging
 });
 
 
@@ -171,34 +174,6 @@ const userSchema = new mongoose.Schema({
         required: false, // Explicitly marking it as not required
       },
     },
-    projects: [
-      {
-        title: String,
-        description: String,
-        images: [String],
-        videoDemo: {
-          platform: String,
-          url: String,
-        },
-        repositoryLinks: [String],
-        technologies: [String],
-        liveDemo: String,
-      },
-    ],
-    skills: [
-      {
-        name: String,
-        endorsements: [
-          {
-            endorsedBy: {
-              type: mongoose.Schema.Types.ObjectId,
-              ref: "User",
-            },
-            dateEndorsed: Date,
-          },
-        ],
-      },
-    ],
     achievements: [
       {
         badge: String,

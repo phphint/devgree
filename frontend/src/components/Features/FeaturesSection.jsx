@@ -127,17 +127,16 @@ const FeaturesSection = () => {
 
           {/* New feature block for Resume */}
 
-          <div className="feature col ">
-            <div className="feature-icon d-flex ">
-              <i className="fa fa-file-pdf fa-3x"></i>
-            </div>
-            <h2>ATS-Compatible Resume</h2>
-            <p>
-              Effortlessly craft a professional resume with our builder,
-              ensuring it's formatted for success with Applicant Tracking
-              Systems, and ready to download as a PDF from your portfolio.
-            </p>
-          </div>
+          <div className="feature col">
+  <div className="feature-icon d-flex">
+    <i className="fa fa-file-pdf fa-3x"></i>
+  </div>
+  <h2>ATS-Compatible Resume Generation</h2>
+  <p>
+    Automatically generate a professional ATS-compatible resume from your portfolio data. Our system intelligently formats your skills, experiences, and accomplishments into a polished resume, ready for download as a PDF.
+  </p>
+</div>
+
 
           {/* New feature block for Direct Contact */}
           <div className="feature col">
@@ -152,15 +151,17 @@ const FeaturesSection = () => {
             </p>
           </div>
 
-          <div className="feature col">
+         {/* Intelligent Resume Import Feature */}
+         <div className="feature col">
             <div className="feature-icon d-flex">
-              <i className="fa fa-chart-line fa-3x"></i>
+              <i className="fa fa-file-import fa-3x"></i>
             </div>
-            <h2>Professional Development Tracking</h2>
+            <h2>Intelligent Resume Import</h2>
             <p>
-              Log your continuous learning activities, track progress towards
-              your career goals, and showcase your dedication to professional
-              growth directly on your portfolio.
+              Effortlessly import your resume and let our AI system precisely
+              extract and populate your profile, projects, skills, and more.
+              Enhance your portfolio with ease, showcasing your professional
+              journey effectively.
             </p>
           </div>
 

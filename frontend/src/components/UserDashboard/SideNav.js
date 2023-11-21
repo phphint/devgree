@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSkillsSubMenu } from "../../reducers/uiSlice"; // adjust the import path as necessary
 
+
+
+
 const SideNav = () => {
   const dispatch = useDispatch();
   const isSkillsSubMenuOpen = useSelector(
@@ -19,6 +22,7 @@ const SideNav = () => {
       className="min-vh-100 col-md-3 col-lg-2 d-md-block sidebar collapse bg-dark text-white"
     >
       <div className="position-sticky pt-3">
+
         <ul className="nav flex-column">
           <li className="nav-item">
             <Link
