@@ -1,9 +1,25 @@
-import sys
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request
+
 from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
 from pdfminer.high_level import extract_text
 import json
-import traceback
+import torch
+import os
+import datetime
+import uuid
 
+
+app = FastAPI()
+
+# Preload model and tokenizer
+
+# Local path to the model
+model_path = "/app/distilBERT-finetuned-resumes-sections"
+
+# Preload model and tokenizer
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+model = AutoModelForTokenClassification.from_pretrained(model_path)
+ner_pipeline = pipeline("ner", model=model, tokenizer=tokenizer)
 
 known_soft_skills = {
     'javascript', 'python', 'java', 'c++', 'c#', 'ruby', 'php', 'swift', 'kotlin',
@@ -91,24 +107,37 @@ def parse_ner_results(ner_results, target_label):
 
     return structured_data['soft_skills']  # Return only soft_skills part
 
-if __name__ == "__main__":
+
+# Define your existing functions here (parse_resume, keyword_matching, etc.)
+
+@app.post("/parse-resume/")
+async def parse_resume_endpoint(request: Request, file: UploadFile = File(...)):
+    # Generate a unique file name using timestamp and UUID
+    unique_filename = f"temp_resume_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}_{uuid.uuid4()}.pdf"
+
     try:
-        # Use the model directly from Hugging Face's repository
-        model_identifier = "has-abi/distilBERT-finetuned-resumes-sections"
-        tokenizer = AutoTokenizer.from_pretrained(model_identifier)
-        model = AutoModelForTokenClassification.from_pretrained(model_identifier)
-        ner_pipeline = pipeline("ner", model=model, tokenizer=tokenizer)
+        # Log request headers
+        log_debug(f"Receiving upload request - Headers: {request.headers}")
 
-        if len(sys.argv) < 2:
-            #log_debug("Error: No file path provided.")
-            sys.exit(1)
+        # Read and log file content
+        content = await file.read()
+        log_debug(f"Uploaded file content (truncated): {content[:500]}")
 
-        file_path = sys.argv[1]
-        #log_debug(f"Parsing resume file: {file_path}")
-        parsed_resume = parse_resume(file_path)
+        # Write to a unique temporary file to use with extract_text
+        with open(unique_filename, "wb") as temp_file:
+            temp_file.write(content)
 
-        #log_debug("Printing parsed resume data")
-        result_json = {"soft_skills": parsed_resume}
-        print(json.dumps(result_json, indent=4))
+        parsed_data = parse_resume(unique_filename)
+
+        # Delete the unique temporary file after processing
+        os.remove(unique_filename)
+
+        return {"soft_skills": parsed_data}
+
     except Exception as e:
-        log_debug(f"Script error: {e}\n{traceback.format_exc()}")
+        log_debug(f"Error processing request: {str(e)}")
+        # Delete the unique temporary file in case of an exception
+        if os.path.exists(unique_filename):
+            os.remove(unique_filename)
+        raise HTTPException(status_code=500, detail=str(e))
+

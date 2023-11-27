@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+transformers
+pdfminer.six
+torch
+python-multipart

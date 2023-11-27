@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoggedIn: false,
   token: null,
+  userId: null, // Add userId to the initial state
   fullName: "",
   profilePicture: "",
   email: "",
@@ -15,9 +16,11 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       // Assuming action.payload is an object with token, fullName, and profilePicture
-      const { token, fullName, profilePicture, email } = action.payload;
+      const { token, userId, fullName, profilePicture, email } = action.payload;
+
       localStorage.setItem("authToken", token); // Save the token to localStorage
       state.token = token; // Update the token in the state
+      state.userId = userId; // Update the userId in the state
       state.fullName = fullName; // Update the full name in the state
       state.profilePicture = profilePicture; // Update the profile picture in the state
       state.email = email; // Update the email in the state
@@ -26,6 +29,7 @@ const authSlice = createSlice({
     logout: (state) => {
       localStorage.removeItem("authToken"); // Remove the token from localStorage
       state.token = null; // Reset the token in the state
+      state.userId = null; // Reset the userId in the state
       state.fullName = ""; // Reset the full name in the state
       state.profilePicture = ""; // Reset the profile picture in the state
       state.isLoggedIn = false; // Set the login state to false

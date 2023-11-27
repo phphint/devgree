@@ -34,6 +34,7 @@ const LoginForm = ({ handleClose }) => {
         
             dispatch(login({
                 token: response.data.token,
+                userId: response.data.userId,
                 fullName: response.data.fullName,
                 profilePicture: response.data.profilePicture,
                 email: response.data.email, 
@@ -45,7 +46,8 @@ const LoginForm = ({ handleClose }) => {
           navigate('/dashboard'); // Redirect to /dashboard on successful login
 
 
-           
+       
+
 
         } catch (error) {
             if (error.response && error.response.status === 401) {

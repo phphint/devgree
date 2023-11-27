@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../reducers/authSlice.js";
 
+ 
+
 // In AvatarMenu.js
 import ResumeUploadModal from "../../ResumeUploadModal";
 
@@ -26,6 +28,7 @@ const AvatarMenu = () => {
   return (
     
       <div className="nav-item dropdown flex-nowrap">
+       
         <button
           className="btn nav-link dropdown-toggle"
           data-bs-toggle="dropdown"

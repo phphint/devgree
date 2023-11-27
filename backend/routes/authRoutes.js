@@ -6,9 +6,9 @@ const passport = require('passport');
 const multer = require('multer'); // Add multer for file handling
 
 const authController = require('../controllers/authController');
-// Require the userController which we will create
 const userController = require('../controllers/userController');
 const resumeController = require('../controllers/resumeController');
+const dashboardController = require('../controllers/dashboardController');
 
 // Configure multer for file upload, allowing only pdf, doc, and docx files
 const fileFilter = (req, file, cb) => {
@@ -31,6 +31,13 @@ router.post('/import-resume', passport.authenticate('jwt', { session: false }), 
 // Add these new routes for viewing and editing the profile data
 router.get('/profile', passport.authenticate('jwt', { session: false }), userController.getProfile);
 router.put('/profile', passport.authenticate('jwt', { session: false }), userController.editProfile);
+
+router.put('/dashboard/settings', passport.authenticate('jwt', { session: false }), dashboardController.updateSettings);
+
+
+router.post('/dashboard/:section', passport.authenticate('jwt', { session: false }), dashboardController.addItem);
+router.put('/dashboard/:section/:itemId', passport.authenticate('jwt', { session: false }), dashboardController.editItem);
+router.delete('/dashboard/:section/:itemId', passport.authenticate('jwt', { session: false }), dashboardController.deleteItem);
 
 
 

@@ -60,6 +60,7 @@ exports.login = async (req, res) => {
     // Send the response including the token, full name, and profile picture
     res.send({
         token,
+        userId: user._id, // Include the userId in the response
         fullName: user.profile.fullName,
         profilePicture: user.profile.profilePicture,
         email: user.email

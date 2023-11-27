@@ -24,7 +24,7 @@ RUN pip3 install \
     pdfminer.six \
     PyPDF2 \
     bleach \
-    torch --break-system-packages
+    axios --break-system-packages
 
 
 # Create app group and user for running the application

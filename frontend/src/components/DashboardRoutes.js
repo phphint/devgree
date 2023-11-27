@@ -16,6 +16,9 @@ import MyProfile from './UserDashboard/MyProfile';
 import MyProjects from './UserDashboard/MyProjects';
 import UnifiedCodeDisplay from './UserDashboard/UnifiedCodeDisplay';
 import PortfolioAnalytics from './UserDashboard/PortfolioAnalytics';
+import Education from './UserDashboard/Education';
+import Skills from './UserDashboard/Skills';
+
 // ... import other components ...
 
 function DashboardRoutes() {
@@ -45,7 +48,14 @@ function DashboardRoutes() {
           </ProtectedRoute>
         }
       />
-    
+      <Route
+        path="/skills"
+        element={
+          <ProtectedRoute>
+            <Skills />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/skill-endorsements"
         element={
@@ -115,6 +125,15 @@ function DashboardRoutes() {
         element={
           <ProtectedRoute>
             <PortfolioAnalytics />
+          </ProtectedRoute>
+        }
+      />
+
+<Route
+        path="//education"
+        element={
+          <ProtectedRoute>
+            <Education />
           </ProtectedRoute>
         }
       />

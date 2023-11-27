@@ -138,18 +138,31 @@ class ResumeDataHandler {
   processProjects(user) {
     if (this.resumeData.resume && Array.isArray(this.resumeData.resume.projects)) {
       user.resume.projects = this.resumeData.resume.projects.map(project => ({
-        // Map each project field accordingly
+        title: project.title,
+        description: project.description,
+        role: project.role,
+        technologies: project.technologies,
+        startDate: project.startDate,
+        endDate: project.endDate,
+        url: project.url
       }));
     }
   }
+  
 
   processCertifications(user) {
     if (this.resumeData.resume && Array.isArray(this.resumeData.resume.certifications)) {
       user.resume.certifications = this.resumeData.resume.certifications.map(cert => ({
-        // Map each certification field accordingly
+        name: cert.name,
+        authority: cert.authority,
+        dateObtained: cert.dateObtained,
+        validUntil: cert.validUntil,
+        credentialID: cert.credentialID,
+        credentialURL: cert.credentialURL
       }));
     }
   }
+  
 
   processLanguages(user) {
     if (
@@ -162,6 +175,36 @@ class ResumeDataHandler {
       }));
     }
   }
+
+  processRepositories(user) {
+    // Check if the repositories data is present and is an array
+    if (this.resumeData.resume && Array.isArray(this.resumeData.resume.repositories)) {
+      user.repositories = this.resumeData.resume.repositories.map(repo => ({
+        platform: repo.platform,
+        repoUrl: repo.repoUrl
+        // Add other necessary fields here
+      }));
+    } else {
+      console.log("No repository data found in resume data.");
+    }
+  }
+
+  processTestimonials(user) {
+    // Check if the testimonials data is present and is an array
+    if (this.resumeData.resume && Array.isArray(this.resumeData.resume.testimonials)) {
+      user.testimonials = this.resumeData.resume.testimonials.map(testimonial => ({
+        authorName: testimonial.authorName,
+        relationship: testimonial.relationship,
+        testimonial: testimonial.testimonial,
+        dateGiven: testimonial.dateGiven
+        // Add other necessary fields here
+      }));
+    } else {
+      console.log("No testimonials data found in resume data.");
+    }
+  }
+  
+  
 
   // ... other processing functions for additional sections, if any.
 }

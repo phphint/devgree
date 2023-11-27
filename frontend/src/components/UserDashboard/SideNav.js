@@ -22,6 +22,7 @@ const SideNav = () => {
       className="min-vh-100 col-md-3 col-lg-2 d-md-block sidebar collapse bg-dark text-white"
     >
       <div className="position-sticky pt-3">
+    
 
         <ul className="nav flex-column">
           <li className="nav-item">
@@ -66,7 +67,7 @@ const SideNav = () => {
                 <li>
                   <Link
                     className="nav-link text-dark"
-                    to="/dashboard/add-skills"
+                    to="/dashboard/skills"
                   >
                     <i className="fas fa-brain"></i> Add Skills
                   </Link>
@@ -123,6 +124,17 @@ const SideNav = () => {
               <i className="fas fa-code-branch"></i> Unified Code Display
             </Link>
           </li>
+
+
+          <li className="nav-item">
+            <Link
+              className="nav-link text-white"
+              to="/dashboard/education"
+            >
+              <i className="fas fa-code-branch"></i> Education
+            </Link>
+          </li>
+
           <li className="nav-item">
             <Link className="nav-link text-white" to="/dashboard/settings">
               <i className="fas fa-cog"></i> Settings
