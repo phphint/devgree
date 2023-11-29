@@ -46,8 +46,8 @@ exports.login = async (req, res) => {
         return res.status(401).send({ message: req.authInfo.message });
     }
 
-    // Find the user's details from the database
-    const user = await User.findById(req.user._id).select('profile.fullName profile.profilePicture email');
+    // Adjust this query to include the new fields
+    const user = await User.findById(req.user._id).select('profile.fullName profile.profilePicture email profile.bio profile.roleTitle profile.location profile.phone profile.videoIntro');
 
     // Ensure the user was found
     if (!user) {
@@ -57,16 +57,22 @@ exports.login = async (req, res) => {
     // Sign the JWT token with the user's ID
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
-    // Send the response including the token, full name, and profile picture
+    // Send the response including the token and user details
     res.send({
         token,
         userId: user._id, // Include the userId in the response
         fullName: user.profile.fullName,
         profilePicture: user.profile.profilePicture,
-        email: user.email
-    
+        email: user.email,
+        // Include the newly added fields in the response
+        bio: user.profile.bio,
+        roleTitle: user.profile.roleTitle,
+        location: user.profile.location,
+        phone: user.profile.phone,
+        videoIntro: user.profile.videoIntro
     });
 };
+
 
 exports.googleCallback = async (req, res) => {
     // Logic to handle the user returned from Google

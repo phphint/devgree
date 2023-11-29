@@ -126,10 +126,8 @@ exports.editProfile = [
       const updatedUser = await user.save();
       console.log("Updated profile:", updatedUser.profile);
 
-      res.json({
-        message: "Profile updated successfully",
-        profile: updatedUser.profile,
-      });
+      res.json(updatedUser.profile); // Directly send the profile object
+
     } catch (error) {
       console.error("Error in editProfile:", error);
       res

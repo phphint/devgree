@@ -1,6 +1,10 @@
+// userportfolioview.jsx
+
 import React from "react";
 import { useSelector } from "react-redux";
-import PortfolioFooter from "./PortfolioFooter";
+import { Helmet } from "react-helmet";
+
+import PortfolioFooter from "../Footer";
 import PortfolioNavbar from "./PortfolioNavbar";
 import PortfolioHeader from "./PortfolioHeader";
 import PortfolioMain from "./PortfolioMain";
@@ -9,6 +13,13 @@ const UserPortfolioView = () => {
   const portfolioData = useSelector((state) => state.userPortfolio.data);
   const loading = useSelector((state) => state.userPortfolio.loading);
   const error = useSelector((state) => state.userPortfolio.error);
+
+  const pageTitle = portfolioData
+    ? `${portfolioData.profile.fullName}'s Portfolio`
+    : "User Portfolio";
+  const pageDescription = portfolioData
+    ? portfolioData.profile.bio
+    : "Welcome to my professional portfolio.";
 
   if (loading) {
     return (
@@ -58,14 +69,28 @@ const UserPortfolioView = () => {
   // If there's data, render the portfolio view
   return (
     <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="website" />
+        {portfolioData.profile.profilePicture && (
+          <meta
+            property="og:image"
+            content={`http://localhost:9000/${portfolioData.profile.profilePicture}`}
+          />
+        )}
+        {/* Add more tags as needed */}
+      </Helmet>
       <div className="container">
         <PortfolioNavbar />
         <PortfolioHeader />
         <PortfolioMain />
         {/* Your portfolio data rendering logic */}
-     
       </div>
-      <PortfolioFooter />   <pre>{prettyData}</pre>
+      <PortfolioFooter /> <pre className="bg-white text-dark">{prettyData}</pre>
+
     </>
   );
 };

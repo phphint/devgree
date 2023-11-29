@@ -1,13 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+// authslice 
 
-// Define the initial state with additional properties for the user's full name and profile picture
+import { createSlice } from "@reduxjs/toolkit";
+import { updateProfile as updateProfileThunk } from '../components/UserDashboard/profileThunks.js';
+
+
+
+
 const initialState = {
   isLoggedIn: false,
   token: null,
-  userId: null, // Add userId to the initial state
+  userId: null,
   fullName: "",
   profilePicture: "",
   email: "",
+  bio: "",
+  roleTitle: "",
+  location: "",
+  phone: "",
+  videoIntro: {
+    platform: "",
+    url: "",
+  },
 };
 
 const authSlice = createSlice({
@@ -15,37 +28,51 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      // Assuming action.payload is an object with token, fullName, and profilePicture
-      const { token, userId, fullName, profilePicture, email } = action.payload;
-
-      localStorage.setItem("authToken", token); // Save the token to localStorage
-      state.token = token; // Update the token in the state
-      state.userId = userId; // Update the userId in the state
-      state.fullName = fullName; // Update the full name in the state
-      state.profilePicture = profilePicture; // Update the profile picture in the state
-      state.email = email; // Update the email in the state
-      state.isLoggedIn = true; // Set the login state to true
+      const { token, userId, fullName, profilePicture, email, bio, roleTitle, location, phone, videoIntro } = action.payload;
+    
+      localStorage.setItem("authToken", token);
+      state.token = token;
+      state.userId = userId;
+      state.fullName = fullName;
+      state.profilePicture = profilePicture;
+      state.email = email;
+      state.isLoggedIn = true;
+      state.bio = bio ?? "";
+      state.roleTitle = roleTitle ?? "";
+      state.location = location ?? "";
+      state.phone = phone ?? "";
+      state.videoIntro = videoIntro ?? { platform: "", url: "" };
     },
     logout: (state) => {
-      localStorage.removeItem("authToken"); // Remove the token from localStorage
-      state.token = null; // Reset the token in the state
-      state.userId = null; // Reset the userId in the state
-      state.fullName = ""; // Reset the full name in the state
-      state.profilePicture = ""; // Reset the profile picture in the state
-      state.isLoggedIn = false; // Set the login state to false
+      localStorage.removeItem("authToken");
+      state.token = null;
+      state.userId = null;
+      state.fullName = "";
+      state.profilePicture = "";
+      state.email = "";
+      state.isLoggedIn = false;
+      state.bio = "";
+      state.roleTitle = "";
+      state.location = "";
+      state.phone = "";
+      state.videoIntro = { platform: "", url: "" };
     },
-    // Add a new reducer for updating the profile
     updateProfile: (state, action) => {
-      const { fullName, profilePicture } = action.payload;
-      state.fullName = fullName;
-      // Only update profilePicture if it's provided (truthy)
-      if (profilePicture) {
-        state.profilePicture = profilePicture;
-      }
-    },
-
-    // ... potentially other reducers ...
+      // Assuming action.payload contains the updated user profile data
+      const { fullName, profilePicture, bio, roleTitle, location, phone, videoIntro } = action.payload;
+      state.fullName = fullName ?? state.fullName;
+      state.profilePicture = profilePicture ?? state.profilePicture;
+      state.bio = bio ?? state.bio;
+      state.roleTitle = roleTitle ?? state.roleTitle;
+      state.location = location ?? state.location;
+      state.phone = phone ?? state.phone;
+      state.videoIntro = videoIntro ?? state.videoIntro;
   },
+    
+    // ... potentially other reducers ...
+  }
+
+  
 });
 
 export const { login, logout, updateProfile } = authSlice.actions;

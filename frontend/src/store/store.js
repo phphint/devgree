@@ -26,7 +26,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE', 'persist/REGISTER'],
+        ignoredActions: ['auth/updateProfile','persist/PERSIST', 'persist/REHYDRATE', 'persist/REGISTER'],
       },
     }),
   // Add any other middleware or enhancers if needed

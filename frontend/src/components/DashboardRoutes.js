@@ -1,23 +1,26 @@
 // DashboardRoutes.js
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 
-import Dashboard from './UserDashboard/Dashboard';
-import Certifications from './UserDashboard/Certifications';
-import Settings from './UserDashboard/Settings';
+import Dashboard from "./UserDashboard/Dashboard";
+import Certifications from "./UserDashboard/Certifications";
+import Settings from "./UserDashboard/Settings";
 
-import SkillEndorsements from './UserDashboard/SkillEndorsements';
-import FAQs from './UserDashboard/FAQs';
-import SkillsAssessment from './UserDashboard/SkillsAssessment';
-import HelpSupport from './UserDashboard/HelpSupport';
-import TestimonialsReferences from './UserDashboard/TestimonialsReferences';
-import MyProfile from './UserDashboard/MyProfile';
-import MyProjects from './UserDashboard/MyProjects';
-import UnifiedCodeDisplay from './UserDashboard/UnifiedCodeDisplay';
-import PortfolioAnalytics from './UserDashboard/PortfolioAnalytics';
-import Education from './UserDashboard/Education';
-import Skills from './UserDashboard/Skills';
+import SkillEndorsements from "./UserDashboard/SkillEndorsements";
+import FAQs from "./UserDashboard/FAQs";
+import SkillsAssessment from "./UserDashboard/SkillsAssessment";
+import HelpSupport from "./UserDashboard/HelpSupport";
+import TestimonialsReferences from "./UserDashboard/TestimonialsReferences";
+import MyProfile from "./UserDashboard/MyProfile";
+import MyProjects from "./UserDashboard/MyProjects";
+import UnifiedCodeDisplay from "./UserDashboard/UnifiedCodeDisplay";
+import PortfolioAnalytics from "./UserDashboard/PortfolioAnalytics";
+import Education from "./UserDashboard/Education";
+import Skills from "./UserDashboard/Skills";
+import Billing from "./UserDashboard/Billing";
+import WorkHistory from "./UserDashboard/WorkHistory";
+
 
 // ... import other components ...
 
@@ -129,7 +132,7 @@ function DashboardRoutes() {
         }
       />
 
-<Route
+      <Route
         path="//education"
         element={
           <ProtectedRoute>
@@ -137,6 +140,25 @@ function DashboardRoutes() {
           </ProtectedRoute>
         }
       />
+
+<Route
+        path="/billing"
+        element={
+          <ProtectedRoute>
+            <Billing />
+          </ProtectedRoute>
+        }
+      />
+
+<Route
+        path="/work-history"
+        element={
+          <ProtectedRoute>
+            <WorkHistory />
+          </ProtectedRoute>
+        }
+      />
+
       {/* ... other dashboard routes ... */}
     </Routes>
   );

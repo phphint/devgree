@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const CustomNavbar = ({ userName, userRole }) => {
+const CustomNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const profile = useSelector((state) => state.userPortfolio.data.profile);
+
+  const userName = profile?.fullName || 'No Name';
+  const userRole = profile?.roleTitle || 'No Role';
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -10,8 +15,8 @@ const CustomNavbar = ({ userName, userRole }) => {
   return (
     <nav className="d-flex justify-content-between align-items-center p-3 border-bottom">
       <div>
-        <h2>Name Last</h2>
-        <p>Role Title </p>
+        <h2>{userName}</h2>
+        <p>{userRole}</p>
       </div>
 
       <div className="d-flex align-items-center">

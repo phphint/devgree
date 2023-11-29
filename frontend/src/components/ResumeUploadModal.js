@@ -45,6 +45,7 @@ const ResumeUploadModal = () => {
     }
   };
 
+  try {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -74,6 +75,9 @@ const ResumeUploadModal = () => {
       </Modal>
     </>
   );
+} catch (error) {
+  console.error(error);
+}
 };
 
 export default ResumeUploadModal;

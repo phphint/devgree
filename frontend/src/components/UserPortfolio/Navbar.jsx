@@ -1,9 +1,11 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import './portfoslio.css'; 
+
 
 const CustomNavbar = ({ userName, userRole }) => {
   return (
-    <nav className="d-flex justify-content-between align-items-center p-3 border-bottom">
+    <nav className="portfolio-top d-flex justify-content-between align-items-center p-3 border-bottom">
       <div>
         <h2>name</h2>
         <p>role</p>
@@ -26,6 +28,7 @@ const CustomNavbar = ({ userName, userRole }) => {
       </div>
     </nav>
   );
-};
+}; 
 
-export default CustomNavbar;
+export default CustomNavbar; 
+ 

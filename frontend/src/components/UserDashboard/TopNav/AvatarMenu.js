@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react"; // Import useEffect
+
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../reducers/authSlice.js";
@@ -13,6 +14,12 @@ import ResumeUploadModal from "../../ResumeUploadModal";
 const AvatarMenu = () => {
   const { fullName, profilePicture } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+   // Use useEffect to log the state
+   useEffect(() => {
+    console.log("Auth State in AvatarMenu:", { fullName, profilePicture });
+  }, [fullName, profilePicture]); // Dependencies array ensures this runs when fullName or profilePicture changes
+
 
   const baseURL = process.env.REACT_APP_S3_BASE_URL || "http://localhost:9000/";
   const profilePicURL = profilePicture
