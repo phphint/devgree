@@ -1,21 +1,50 @@
-# Use a specific version of node
 FROM node:20.9.0-slim
 
+# Set working directory
 WORKDIR /app 
 
-# Create a non-root user and give necessary permissions
-RUN groupadd app && useradd -r -g app -m app && chown -R app:app /app
+# Argument for environment (with a default value)
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
-# Copy package files
+# Install dependencies
 COPY package*.json ./
+RUN if [ "$NODE_ENV" = "development" ]; then \
+        npm install; \
+    else \
+        npm install --only=production; \
+    fi
 
-# Install all dependencies from package.json
-RUN npm install
+# Change ownership of the app directory to the 'node' user
+RUN chown -R node:node /app
 
-# Switch to non-root user
-USER app
+# Switch to 'node' user
+USER node
 
-# Copy the rest of your app (as the non-root user)
-COPY --chown=app:app . .
+# Copy app source
+COPY --chown=node:node . .
 
-CMD ["npm", "start"]
+# Install Express server for serving the build in production
+# This is done as root because global installs might need root access
+USER root
+RUN if [ "$NODE_ENV" = "production" ]; then \
+        npm install express; \
+    fi
+
+# Copy express server script
+COPY --chown=node:node server.js ./
+
+# Switch back to 'node' user to run the app
+USER node
+
+# Build app for production
+RUN if [ "$NODE_ENV" = "production" ]; then \
+        npm run build; \
+    fi
+
+# Start command
+CMD if [ "$NODE_ENV" = "production" ]; then \
+        node server.js; \
+    else \
+        npm start; \
+    fi
