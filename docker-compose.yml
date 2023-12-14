@@ -49,6 +49,8 @@ services:
       - LETSENCRYPT_EMAIL=jason@mavacode.com
       - VIRTUAL_HOST=devgree.com,www.devgree.com
       - VIRTUAL_PORT=3000
+      - REACT_APP_DEBUG
+      - REACT_APP_BASE_URL
 
   mongodb:
     networks:
