@@ -78,12 +78,12 @@ const UserPortfolioView = () => {
         {portfolioData.profile.profilePicture && (
           <meta
             property="og:image"
-            content={`http://localhost:9000/${portfolioData.profile.profilePicture}`}
+            content={`${process.env.REACT_APP_S3_BASE_URL}/${portfolioData.profile.profilePicture}`}
           />
         )}
         {/* Add more tags as needed */}
       </Helmet>
-      <div className="container">
+      <div className="view container  pt-3">
         <PortfolioNavbar />
         <PortfolioHeader />
         <PortfolioMain />
