@@ -11,7 +11,7 @@ const Banner = () => {
             <p className="lead mb-4">
             Step into a new era of showcasing. Upload your projects and skills on your personalized page today, and let our comprehensive skills assessments feature highlight your technical proficiencies to potential employers and peers.</p>
             <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="{`${baseURL}/portfolio/654bca4fc5b943e712bc2518" className="btn btn-primary btn-lg px-4 gap-3">Example Portfolio</a>
+            <a href={`${baseURL}/portfolio/654bca4fc5b943e712bc2518`} className="btn btn-primary btn-lg px-4 gap-3">Example Portfolio</a>
                 </div>
             </div>
             <div className="overflow-hidden" style={{ maxHeight: '40vh' }}>
