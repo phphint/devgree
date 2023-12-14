@@ -12,7 +12,7 @@ export const updateProfileAsync = createAsyncThunk(
     try {
       console.log("Sending request to update profile"); // Debug: Log before sending the request
       const response = await axios.put(
-        "http://localhost:5001/api/profile",
+        `${process.env.REACT_APP_API_URL}/profile`,
         formData,
         {
           headers: {
