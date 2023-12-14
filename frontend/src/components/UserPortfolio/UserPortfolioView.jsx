@@ -10,6 +10,8 @@ import PortfolioHeader from "./PortfolioHeader";
 import PortfolioMain from "./PortfolioMain";
 
 const UserPortfolioView = () => {
+  const isDebugMode = process.env.REACT_APP_DEBUG === "true";
+
   const portfolioData = useSelector((state) => state.userPortfolio.data);
   const loading = useSelector((state) => state.userPortfolio.loading);
   const error = useSelector((state) => state.userPortfolio.error);
@@ -89,7 +91,10 @@ const UserPortfolioView = () => {
         <PortfolioMain />
         {/* Your portfolio data rendering logic */}
       </div>
-      <PortfolioFooter /> <pre className="bg-white text-dark">{prettyData}</pre>
+      <PortfolioFooter /> 
+      {isDebugMode && (
+        <pre className="bg-white text-dark">{prettyData}</pre>
+      )}
 
     </>
   );
