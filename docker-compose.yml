@@ -2,6 +2,8 @@ version: '3'
 
 services:
   backend:
+    networks:
+      - proxy_app-network
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -18,12 +20,18 @@ services:
       - MINIO_ACCESS_KEY
       - MINIO_SECRET_KEY
       - OPENAI_API_KEY
+      - LETSENCRYPT_HOST=api.devgree.com
+      - LETSENCRYPT_EMAIL=jason@mavacode.com
+      - VIRTUAL_HOST=api.devgree.com
+      - VIRTUAL_PORT=5000
     volumes:
       - ./backend:/app
     depends_on:
       - mongodb
 
   frontend:
+    networks:
+      - proxy_app-network
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -37,8 +45,14 @@ services:
       - NODE_ENV=development
       - REACT_APP_API_URL
       - REACT_APP_S3_BASE_URL
+      - LETSENCRYPT_HOST=devgree.com,www.devgree.com
+      - LETSENCRYPT_EMAIL=jason@mavacode.com
+      - VIRTUAL_HOST=devgree.com,www.devgree.com
+      - VIRTUAL_PORT=3000
 
   mongodb:
+    networks:
+      - proxy_app-network
     image: mongo:latest
     mem_limit: 128M
     ports:
@@ -50,6 +64,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD
 
   minio:
+    networks:
+      - proxy_app-network
     image: minio/minio:latest
     mem_limit: 128M
     ports:
@@ -57,6 +73,10 @@ services:
     environment:
       - MINIO_ROOT_USER
       - MINIO_ROOT_PASSWORD
+      - LETSENCRYPT_HOST=devgree.com,www.devgree.com
+      - LETSENCRYPT_EMAIL=jason@mavacode.com
+      - VIRTUAL_HOST=cdn.devgree.com
+      - VIRTUAL_PORT=9000
     volumes:
       - ./minio-data:/data
     command: server /data
@@ -67,6 +87,8 @@ services:
       retries: 3
 
   redis:
+    networks:
+      - proxy_app-network
     image: redis:latest
     mem_limit: 128M
     ports:
@@ -76,6 +98,8 @@ services:
     command: redis-server --appendonly yes
  
   fastapi:
+    networks:
+      - proxy_app-network
     build:
       context: ./fastapi
       dockerfile: Dockerfile
@@ -93,3 +117,7 @@ services:
       - ./fastapi:/app
     depends_on:
       - mongodb
+
+networks:
+  proxy_app-network:
+    external: true
