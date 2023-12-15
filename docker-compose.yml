@@ -58,7 +58,7 @@ services:
     image: mongo:latest
     mem_limit: 128M
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - ./mongodb-data:/data/db
     environment:
