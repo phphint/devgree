@@ -43,8 +43,4 @@ RUN if [ "$NODE_ENV" = "production" ]; then \
     fi
 
 # Start command
-CMD if [ "$NODE_ENV" = "production" ]; then \
-        node server.js; \
-    else \
-        npm start; \
-    fi
+CMD ["/bin/sh", "-c", "if [ \"$NODE_ENV\" = 'production' ]; then node server.js; else npm start; fi"]
