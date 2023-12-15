@@ -9,3 +9,4 @@ mongodb-data/
 .DS_Store
 
 
+.env
