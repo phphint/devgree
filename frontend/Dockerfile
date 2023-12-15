@@ -4,7 +4,8 @@ FROM node:20.9.0-slim
 WORKDIR /app 
 
 # Argument for environment (with a default value)
-ARG NODE_ENV=production
+#ARG NODE_ENV=production
+
 ENV NODE_ENV=${NODE_ENV}
 
 # Install dependencies
