@@ -1,6 +1,5 @@
-# Node modules
-frontend/node_modules/
-backend/node_modules/
+
+
 
 # Data directories
 mongodb-data/
