@@ -11,8 +11,14 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install -r requirements.txt
+# Install needed packages one by one
+RUN pip install fastapi
+RUN pip install uvicorn
+RUN pip install transformers
+RUN pip install pdfminer.six
+RUN pip install torch
+RUN pip install python-multipart
+
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
