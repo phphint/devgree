@@ -98,4 +98,4 @@ Core functionalities of Devgree.com include:
 
 ## Payment Token Redemption System
 - Users redeem tokens to access premium services like the share token portfolio feature and skill assessment certifications.
-- Services provided include AI-driven features by QeeryCortex.com for AI resume candidate interviewing.
+- Services provided include AI-driven features by QueryCortex.com for AI resume candidate interviewing.
