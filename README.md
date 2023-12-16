@@ -1,130 +1,101 @@
 # devgree.com - Technical Design Document
- 
-### Introduction
-Devgree.com is an innovative platform targeting tech enthusiasts. It offers them the capability to showcase portfolios, earn and display tech certifications.
 
-### Project Overview
-Core functionalities of Devgree.com encompass:
+## Introduction
+Devgree.com is an innovative platform for tech enthusiasts, offering capabilities to showcase portfolios and earn tech certifications.
+
+## Project Overview
+Core functionalities of Devgree.com include:
 - Portfolio management.
-- Tech certification acquisition and exhibition.
- 
+- Acquisition and display of tech certifications.
+- Token-based service access for enhanced features.
 
-### System Architecture
+## System Architecture
 
-#### 3.1 Front-end:
-- Framework: React.js within a Node.js environment.
-- State Management: Redux.
-- ORM: Mongoose (for MongoDB operations and schema validation).
+### 1. Front-end:
+- **Framework**: React.js within a Node.js environment.
+- **State Management**: Redux.
+- **ORM**: Mongoose (for MongoDB operations and schema validation).
 
-#### 3.2 Back-end:
-- Runtime: Node.js.
-- Framework: Express.js integrated with Passport.js for authentication.
-- API Strategy: Rest
-- Libraries:
-  - stripe-node
-  - Twilio SDK
-  - bcrypt
-  - jsonwebtoken
-  - express-rate-limit
-  - express-mongo-sanitize
-  - RabbitMQ
-  - rest-rate-limit
+### 2. Back-end:
+- **Runtime**: Node.js.
+- **Framework**: Express.js with Passport.js for authentication.
+- **API Strategy**: REST
+- **Libraries**:
+  - stripe-node for payment processing
+  - Twilio SDK for communications
+  - bcrypt for password hashing
+  - jsonwebtoken for JWT handling
+  - express-rate-limit for rate limiting
+  - express-mongo-sanitize for data sanitization
+  - RabbitMQ for message queuing
+  - rest-rate-limit for API rate limiting
 
-#### 3.3 Database:
-- System: MongoDB.
+### 3. Database:
+- **System**: MongoDB.
 
-### Technical Specifications
-- Primary Language: JavaScript (ES6 and above).
-- Form Management: Formik  and Yup.
-- Tools: npm, Webpack (for React component bundling).
-- Version Control: Git (repositories hosted on GitHub).
+## Technical Specifications
+- **Primary Language**: JavaScript (ES6+).
+- **Form Management**: Formik and Yup.
+- **Tools**: npm, Webpack.
+- **Version Control**: Git with GitHub repositories.
 
+## API Operations  
 
-### API Operations  
+### 4. User Operations:
+- Registration, authentication, directory listing.
+- Payment detail management.
+- Portfolio item management.
 
-#### 6.1 User Operations:
-- User registration.
-- User authentication.
-- User directory listing.
-- Payment detail updates.
-- Portfolio item additions.
+### 5. Payment Operations:
+- Token purchase and redemption.
 
-#### 6.3 Payment Operations:
-- User payment processing.
- 
-### Authentication Flow
-Utilizing Passport.js with JWT:
-- User initiates login.
-- Upon verification, the server returns a JWT.
-- JWT is stored client-side (e.g., local storage) for subsequent requests.
-- Passport middleware validates JWT on each protected route.
+## Authentication Flow
+- Passport.js with JWT for secure authentication and token management.
 
-### Deployment Strategy
+## Deployment Strategy
 **For MVP:**
-- Full-stack application can be launched using `docker-compose up -d`.
-- Docker Containers:
-  - Frontend
-  - Backend
-  - MinIO (for S3-compatible storage).
-  - Cron (managing scheduled tasks).
+- `docker-compose up -d` for launching the application.
+- Docker Containers for frontend, backend, MinIO, and Cron jobs.
 
 **Future Scaling:**
-- Frontend: AWS S3.
-- Backend: AWS Lambda.
-- Database: MongoDB Atlas.
-- File Management: Amazon S3.
+- AWS S3 for frontend hosting.
+- AWS Lambda for backend processing.
+- MongoDB Atlas for the database.
+- Amazon S3 for file management.
 
-### Testing Strategy
-- Unit Testing: Implementing Jest suitable for both React and Node.js.
-- Integration Testing: GraphQL operations testing with either Postman or Apollo Client.
-- E2E Testing: Employing Cypress for a modern testing approach, especially with React apps.
+## Testing Strategy
+- Jest for unit testing.
+- Postman or Apollo Client for integration testing.
+- Cypress for E2E testing, especially with React apps.
 
-### Error Handling
+## Error Handling
+1. **Detailed Logging** with `winston`.
+2. **User-Friendly Error Messages**.
+3. **Retries and Failovers**.
+4. **Monitoring and Alerts** with `Prometheus`.
 
-1. **Detailed Logging**
-- **Tool**: `winston`
-  - Capture error messages, stack traces, user actions, and other relevant metadata.
-  - Ensure no sensitive user data is logged.
+## Security Measures
+1. **Data Encryption** with MongoDB encryption and HTTPS/SSL.
+2. **Input Validation and Sanitization** with `express-mongo-sanitize`.
+3. **Rate Limiting** with `express-rate-limit`.
+4. **Secure Dependencies** using `npm audit`.
+5. **Authentication and Authorization** with secure token storage and RBAC.
+6. **CORS** for specific domain access.
+7. **Security Headers and CSP** with `helmet`.
+8. **Backup Strategy** for regular database backups.
 
-2. **User-Friendly Error Messages**
-- Mask system errors with user-friendly messages.
+## Portfolio Sharing and Control
+- **Share Tokens**: Users can share their portfolios via shareable links, generated using tokens.
+- **Data Control**: Users select which data to display on their shared portfolio.
+- **Default Portfolio View**: Configurable default view settings for non-customized portfolios.
 
-3. **Retries and Failovers**
-- Implement retries or backup processes for transient failures.
+## Structured Data Implementation
+- Front-end and portfolio pages to use structured data (Schema.org, JSON-LD) for better SEO and data representation.
 
-4. **Monitoring and Alerts**
-- **Tool**: `Prometheus`
-  - Detect anomalies or errors.
-  - Notify stakeholders through alerting mechanisms.
+## Performance Testing and Optimization
+- React build performance testing and optimizations.
+- Back-end performance enhancements, including efficient database queries and caching strategies.
 
-### Security Measures
-
-1. **Data Encryption**
-- Utilize MongoDB's native encryption for data at rest.
-- Ensure data in transit, including API calls, is encrypted using HTTPS/SSL.
-
-2. **Input Validation and Sanitization**
-- Protect against SQL Injection, Cross-Site Scripting (XSS), and more.
-- **Library**: `express-mongo-sanitize` for MongoDB injection prevention.
-
-3. **Rate Limiting**
-- **Library**: `express-rate-limit` 
-  - Protect against brute force attacks.
-  - Manage system request load.
-
-4. **Secure Dependencies**
-- Conduct regular audits using `npm audit`.
-
-5. **Authentication and Authorization**
-- Securely store tokens using local storage.
-- Implement Role-based access controls (RBAC) for permissions.
-
-6. **Cross-Origin Resource Sharing (CORS)**
-- Ensure only specific, trusted domains can access the backend.
-
-7. **Security Headers and Content Security Policy (CSP)**
-- **Library**: `helmet`
-  - Mitigate risks from clickjacking and potential code injection threats.
-
-8. **Backup Strategy**
-- Regularly backup the database and store securely for recovery.
+## Payment Token Redemption System
+- Users redeem tokens to access premium services like the share token portfolio feature and skill assessment certifications.
+- Services provided include AI-driven features by QeeryCortex.com for AI resume candidate interviewing.
