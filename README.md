@@ -1,46 +1,26 @@
 # devgree.com - Technical Design Document
-
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Project Overview](#project-overview)
-3. [System Architecture](#system-architecture)
-4. [Technical Specifications](#technical-specifications)
-5. [Database Schema](#database-schema)
-6. [API Operations (GraphQL)](#api-operations-graphql)
-7. [Frontend Components](#frontend-components)
-8. [Authentication Flow](#authentication-flow)
-9. [Deployment Strategy](#deployment-strategy)
-10. [Testing Strategy](#testing-strategy)
-11. [Error Handling](#error-handling)
-12. [Security Measures](#security-measures)
-
+ 
 ### Introduction
-Devgree.com is an innovative platform targeting tech enthusiasts. It offers them the capability to showcase portfolios, earn and display tech certifications, and optionally list themselves in a directory for potential employment opportunities.
+Devgree.com is an innovative platform targeting tech enthusiasts. It offers them the capability to showcase portfolios, earn and display tech certifications.
 
 ### Project Overview
 Core functionalities of Devgree.com encompass:
 - Portfolio management.
 - Tech certification acquisition and exhibition.
-- User authentication & management.
-- Listing option in a hiring directory.
-- Real-time chat between users.
+ 
 
 ### System Architecture
 
 #### 3.1 Front-end:
 - Framework: React.js within a Node.js environment.
 - State Management: Redux.
-- Chat Functionality: React Chat UI.
-- SSL Configuration: greenlock-express.
 - ORM: Mongoose (for MongoDB operations and schema validation).
 
 #### 3.2 Back-end:
 - Runtime: Node.js.
 - Framework: Express.js integrated with Passport.js for authentication.
-- Chat: Socket.io in conjunction with Express.
-- API Strategy: GraphQL facilitated through apollo-server-express.
+- API Strategy: Rest
 - Libraries:
-  - dockerode
   - stripe-node
   - Twilio SDK
   - bcrypt
@@ -48,33 +28,19 @@ Core functionalities of Devgree.com encompass:
   - express-rate-limit
   - express-mongo-sanitize
   - RabbitMQ
-  - graphql-rate-limit
-  - greenlock-express
+  - rest-rate-limit
 
 #### 3.3 Database:
 - System: MongoDB.
 
 ### Technical Specifications
 - Primary Language: JavaScript (ES6 and above).
-- Form Management: Formik.
+- Form Management: Formik  and Yup.
 - Tools: npm, Webpack (for React component bundling).
 - Version Control: Git (repositories hosted on GitHub).
 
-### Database Schema
 
-#### 5.1 Users Collection:
-| Field           | Type     | Description                           |
-|-----------------|----------|---------------------------------------|
-| _id             | ObjectId | Unique user identifier.               |
-| username        | String   | User's chosen name.                   |
-| password        | String   | Encrypted password.                   |
-| portfolio       | Array    | Collection of user projects.          |
-| certifications  | Array    | Earned tech certifications.           |
-| isInDirectory   | Boolean  | Directory listing status.             |
-| phoneNumber     | String   | For SMS notifications.                |
-| paymentDetails  | Object   | Pertinent Stripe data.                |
-
-### API Operations (Transitioning to GraphQL)
+### API Operations  
 
 #### 6.1 User Operations:
 - User registration.
@@ -83,22 +49,9 @@ Core functionalities of Devgree.com encompass:
 - Payment detail updates.
 - Portfolio item additions.
 
-#### 6.2 Notification Operations:
-- SMS sending to users.
-
 #### 6.3 Payment Operations:
 - User payment processing.
-
-### Frontend Components
-- LoginComponent: Manages user authentication.
-- PortfolioComponent: User portfolio presentation & modification.
-- CertificationComponent: Certification display & management.
-- DirectoryListComponent: Displays users for potential hiring.
-- PaymentComponent: Handles Stripe payments.
-- SMSNotificationComponent: Offers SMS notifications through Twilio.
-- ChatComponent: Facilitates real-time user chat.
-- ServerStatusComponent: Displays GraphQL server, Cron server, and S3 server status.
-
+ 
 ### Authentication Flow
 Utilizing Passport.js with JWT:
 - User initiates login.
@@ -115,7 +68,7 @@ Utilizing Passport.js with JWT:
   - MinIO (for S3-compatible storage).
   - Cron (managing scheduled tasks).
 
-**Future Aspirations:**
+**Future Scaling:**
 - Frontend: AWS S3.
 - Backend: AWS Lambda.
 - Database: MongoDB Atlas.
@@ -163,7 +116,7 @@ Utilizing Passport.js with JWT:
 - Conduct regular audits using `npm audit`.
 
 5. **Authentication and Authorization**
-- Securely store tokens using HttpOnly cookies.
+- Securely store tokens using local storage.
 - Implement Role-based access controls (RBAC) for permissions.
 
 6. **Cross-Origin Resource Sharing (CORS)**
