@@ -8,17 +8,31 @@ import { editItem, addItem } from "../dashboardThunks";
 const SkillSchema = Yup.object().shape({
   name: Yup.string().required("Skill name is required"),
   level: Yup.string().required("Skill level is required"),
-  yearsOfExperience: Yup.number().min(0, "Years of experience cannot be negative").required("Years of experience is required"),
+  yearsOfExperience: Yup.string()
+                        .nullable()
+                        .transform(value => (isNaN(value) ? undefined : value))
+                        .test("is-number", "Years of experience must be a valid number", value => !value || !isNaN(value))
+                        .required("Years of experience is required"),
 });
+
 
 const EditSkillsForm = ({ initialData, itemId, closeModal }) => {
   const dispatch = useDispatch();
+
+   // Skill levels options
+   const skillLevels = [
+    "Beginner",
+    "Intermediate",
+    "Advanced",
+    "Expert"
+  ];
 
   const formik = useFormik({
     initialValues: {
       name: initialData.name || "",
       level: initialData.level || "",
-      yearsOfExperience: initialData.yearsOfExperience || 0,
+      yearsOfExperience: initialData.yearsOfExperience || "",
+
     },
     validationSchema: SkillSchema,
     onSubmit: (values) => {
@@ -49,17 +63,21 @@ const EditSkillsForm = ({ initialData, itemId, closeModal }) => {
         )}
       </div>
 
-      {/* Skill Level Input */}
-      <div className="mb-3">
+  {/* Skill Level Select Input */}
+  <div className="mb-3">
         <label htmlFor="level" className="form-label">Skill Level</label>
-        <input
-          type="text"
+        <select
           className="form-control"
           id="level"
           name="level"
           onChange={formik.handleChange}
           value={formik.values.level}
-        />
+        >
+          <option value="">Select Skill Level</option>
+          {skillLevels.map(level => (
+            <option key={level} value={level}>{level}</option>
+          ))}
+        </select>
         {formik.touched.level && formik.errors.level && (
           <div className="text-danger">{formik.errors.level}</div>
         )}
