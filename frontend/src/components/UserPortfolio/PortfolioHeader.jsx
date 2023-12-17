@@ -13,7 +13,7 @@ const UserInfo = () => {
   const phone = profile?.phone || 'Phone not available';
 
   return (
-    <div className="container shadow-wrapper ">
+    <div className="container shadow-wrapper  ">
       <div class=" "> 
       <div className="row navbar-height bg-white text-dark">
         {/* Location */}
