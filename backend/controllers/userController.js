@@ -89,6 +89,8 @@ exports.editProfile = [
 
         const objectName = `profile-pictures/${req.file.originalname}`;
         console.log(`Uploading to MinIO: ${bucketName}/${objectName}`);
+       
+
 
         await minioClient.fPutObject(bucketName, objectName, req.file.path, {
           "Content-Type": req.file.mimetype,
@@ -96,6 +98,8 @@ exports.editProfile = [
 
         console.log("Upload successful. Updating user profile picture URL.");
         user.profile.profilePicture = `${bucketName}/${objectName}`;
+        user.markModified('profile');
+
       }
 
       // Parse videoIntro JSON string before using it
@@ -117,16 +121,22 @@ exports.editProfile = [
 
       // Apply other updates
       Object.keys(req.body).forEach((key) => {
-        if (key !== "videoIntro" && req.body[key] !== undefined) {
+        if (key !== "videoIntro" && key !== "profilePicture" && req.body[key] !== undefined) {
           user.profile[key] = req.body[key];
         }
       });
+      
 
-      console.log("Saving updated profile...");
-      const updatedUser = await user.save();
-      console.log("Updated profile:", updatedUser.profile);
-
-      res.json(updatedUser.profile); // Directly send the profile object
+        // Saving updated profile
+        try {
+          console.log("Attempting to save updated profile...");
+          const updatedUser = await user.save();
+          console.log("Updated profile successfully:", updatedUser.profile);
+          res.json(updatedUser.profile); // Directly send the profile object
+        } catch (saveError) {
+          console.error("Error saving updated profile:", saveError);
+          return res.status(500).json({ message: "Error saving profile", error: saveError.message });
+        }
 
     } catch (error) {
       console.error("Error in editProfile:", error);
