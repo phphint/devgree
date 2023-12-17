@@ -59,14 +59,7 @@ const AvatarMenu = () => {
             Settings
           </Link>
 
-          {/* Button to trigger modal */}
-          <button
-            className="dropdown-item"
-            data-bs-toggle="modal"
-            data-bs-target="#resumeUploadModal"
-          >
-            Import Résumé
-          </button>
+        
 
           <button className="dropdown-item" onClick={handleLogout}>
             Log Out
