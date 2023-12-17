@@ -22,7 +22,6 @@ Core functionalities of Devgree.com include:
 - **API Strategy**: REST
 - **Libraries**:
   - stripe-node for payment processing
-  - Twilio SDK for communications
   - bcrypt for password hashing
   - jsonwebtoken for JWT handling
   - express-rate-limit for rate limiting
@@ -85,7 +84,7 @@ Core functionalities of Devgree.com include:
 8. **Backup Strategy** for regular database backups.
 
 ## Portfolio Sharing and Control
-- **Share Tokens**: Users can share their portfolios via shareable links, generated using tokens.
+- **Share Tokens**: Users can share their portfolios via shareable links.
 - **Data Control**: Users select which data to display on their shared portfolio.
 - **Default Portfolio View**: Configurable default view settings for non-customized portfolios.
 
