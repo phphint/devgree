@@ -105,7 +105,7 @@ const SideNav = () => {
                     className="nav-link text-dark"
                     to="/dashboard/skills"
                   >
-                    <i className="fas fa-brain"></i> Add Skills
+                    <i className="fas fa-brain"></i> Add/Edit Skills
                   </NavLink>
                 </li>
                 <li>
@@ -113,7 +113,7 @@ const SideNav = () => {
                     className="nav-link text-dark"
                     to="/dashboard/skills-assessment"
                   >
-                    <i className="fas fa-brain"></i> Skills Assessment
+                    <i className="fas fa-brain"></i> Skill Assessments
                   </NavLink>
                 </li>
                 <li>
