@@ -45,7 +45,8 @@ const CertificationsList = () => {
             <ListGroup.Item key={certification._id || index} className="d-flex justify-content-between align-items-start">
               <div className="ms-2 me-auto">
                 <div className="fw-bold">{certification.name}</div>
-                Issued by: {certification.authority} - Valid until: {certification.validUntil}
+                Issued by: {certification.authority}
+{certification.validUntil ? ` - Valid until: ${certification.validUntil}` : ""}
               </div>
               <Button variant="outline-secondary" size="sm me-2" onClick={() => handleEdit(certification)}>Edit</Button>
               <Button variant="outline-danger" size="sm" onClick={() => handleDelete(certification._id)}>Delete</Button>
