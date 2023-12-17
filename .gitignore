@@ -1,5 +1,7 @@
 
-
+frontend/node_modules/.cache/
+backend/node_modules/.cache/
+backend/uploads/
 
 # Data directories
 mongodb-data/
