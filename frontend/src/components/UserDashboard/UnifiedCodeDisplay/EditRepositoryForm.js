@@ -8,8 +8,11 @@ import { editItem, addItem } from "../dashboardThunks";
 
 const RepositorySchema = Yup.object().shape({
   platform: Yup.string().required("Platform is required"),
-  repoUrl: Yup.string().required("Repository URL is required"),
+  repoUrl: Yup.string()
+              .required("Repository URL is required")
+              .url("Enter a valid URL"),  // Adding URL validation
 });
+
 
 // List of git repository platforms
 const platforms = [
