@@ -18,6 +18,10 @@ const Dashboard = () => {
             <SideNav />
             <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-white text-dark">
   <h1>Dashboard</h1>
+   {/* Bootstrap Alert for Beta Information */}
+   <div className="alert alert-info mt-3" role="alert">
+    <strong>Beta Version:</strong> Degree.com is currently in beta. Please check back in the coming months for a more functional release. We appreciate your patience and feedback as we work to improve our platform!
+  </div>
 
    {/* Portfolio Completion Progress Bar */}
    <div className="my-3">
