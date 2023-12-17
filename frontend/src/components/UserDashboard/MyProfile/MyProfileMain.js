@@ -9,8 +9,8 @@ import { updateProfileAsync } from "../profileThunks"; // Adjust path as necessa
 
 const ProfileSchema = Yup.object().shape({
   fullName: Yup.string().required("Full Name is required"),
-  bio: Yup.string(),
-  roleTitle: Yup.string(),
+  bio: Yup.string().required("Bio is required"),
+  roleTitle: Yup.string().required("Role Title is required"),
   location: Yup.string(),
   phone: Yup.string(),
   videoIntro: Yup.object().shape({
@@ -18,6 +18,7 @@ const ProfileSchema = Yup.object().shape({
     url: Yup.string().url("Enter a valid URL"),
   }),
 });
+
 
 const MyProfileMain = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,12 @@ const MyProfileMain = () => {
     validationSchema: ProfileSchema,
     onSubmit: async (values) => {
       console.log("Form values before processing:", values); // Debug: Inspect initial form values
+
+
+      if (values.videoIntro.url && !values.videoIntro.platform) {
+        formik.setFieldError("videoIntro.platform", "Platform is required when URL is provided");
+        return;
+      }
 
       setIsSubmitting(true);
       setSuccessMessage("");
@@ -228,6 +235,16 @@ const MyProfileMain = () => {
             value={formik.values.videoIntro?.url ?? ""} // Access url safely
             onChange={formik.handleChange}
           />
+          {formik.touched.videoIntro?.url && formik.errors.videoIntro?.url && (
+            <div className="text-danger">{formik.errors.videoIntro.url}</div>
+          )}
+          {formik.touched.videoIntro?.platform &&
+            formik.errors.videoIntro?.platform && (
+              <div className="text-danger">
+                {formik.errors.videoIntro.platform}
+              </div>
+            )}
+           
         </div>
 
         {/* Profile Picture Input */}
