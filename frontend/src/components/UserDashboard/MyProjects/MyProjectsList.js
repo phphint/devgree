@@ -40,9 +40,8 @@ const MyProjectsList = () => {
             <ListGroup.Item key={project._id || index} className="d-flex justify-content-between align-items-start">
               <div className="ms-2 me-auto">
                 <div className="fw-bold">{project.title}</div>
-                {project.description}
               </div>
-              <Button variant="outline-secondary" size="sm" onClick={() => handleEdit(project)}>Edit</Button>
+              <Button variant="outline-secondary" size="sm" onClick={() => handleEdit(project)} style={{ marginRight: '.5rem' }}>Edit</Button>
               <Button variant="outline-danger" size="sm" onClick={() => handleDelete(project._id)}>Delete</Button>
             </ListGroup.Item>
           ))}
