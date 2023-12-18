@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');  // Make sure to npm install nodemailer
 const crypto = require('crypto');  // Node.js native module
+const axios = require('axios');
+
 
 exports.forgotPassword = async (req, res) => {
     try {
@@ -80,27 +82,61 @@ exports.googleCallback = async (req, res) => {
     res.send({ token });
 };
 
+const { v4: uuidv4 } = require('uuid'); // If using UUID
+
+
 exports.register = async (req, res) => {
     console.log('Register endpoint hit with request body:', req.body);
+    const { recaptchaToken } = req.body;
+
+    if (!recaptchaToken) {
+        console.log('No reCAPTCHA token provided');
+        return res.status(400).send({ message: 'reCAPTCHA token is missing' });
+    }
 
     try {
+        console.log('Verifying reCAPTCHA token');
+        const recaptchaResponse = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
+            params: {
+                secret: process.env.RECAPTCHA_SECRET_KEY,
+                response: recaptchaToken,
+            },
+        });
+
+        if (!recaptchaResponse.data.success) {
+            console.log('reCAPTCHA verification failed');
+            return res.status(401).send({ message: 'Invalid reCAPTCHA. Please try again.' });
+        }
+
+        console.log('Proceeding with user registration');
+
+        // Create a new user object
         const user = new User(req.body);
-        console.log('Attempting to save user:', user);
+
+        // Add a share token to the user's settings
+        user.settings = user.settings || {}; // Ensure settings object exists
+        user.settings.shareTokens = user.settings.shareTokens || []; // Ensure shareTokens array exists
+        const newToken = {
+            token: uuidv4(), // Generate a unique token
+            expiresAt: new Date(Date.now() + 3600 * 1000 * 24), // Set an expiration date for the token
+            visibility: {} // Set default visibility settings or based on user input
+        };
+        user.settings.shareTokens.push(newToken);
 
         await user.save();
         console.log('User registered successfully:', user);
 
         res.send({ message: 'User registered successfully' });
     } catch (error) {
-        if (error.code === 11000) { // MongoDB duplicate key error code
+        console.error('Registration error:', error);
+        if (error.code === 11000) {
+            console.error('Duplicate key error:', error);
             res.status(400).send({ message: 'Email already exists' });
         } else {
-            console.error('Registration error:', error);
-            console.error(error.stack);
-
             res.status(500).send({ message: 'Registration error', error: error.message });
         }
     }
 };
+
 
 

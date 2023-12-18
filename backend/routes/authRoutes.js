@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const multer = require('multer'); // Add multer for file handling
+const rateLimit = require('express-rate-limit');
+
 
 const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
@@ -24,8 +26,30 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-// Resume import route
-router.post('/import-resume', passport.authenticate('jwt', { session: false }), upload.single('resume'), resumeController.importResume);
+// Configure rate limiter for login attempts
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes window
+    max: 5, // limit each IP to 5 requests per windowMs
+    message: 'Too many login attempts from this IP, please try again after 15 minutes'
+  });
+
+  // Rate limiter for registration
+const registerLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 3,
+    message: 'Too many registration attempts from this IP, please try again after an hour'
+  });
+  
+  // Rate limiter for resume import
+  const resumeImportLimiter = rateLimit({
+    windowMs: 30 * 60 * 1000, // 30 minutes
+    max: 2,
+    message: 'Too many resume import attempts from this IP, please try again after 30 minutes'
+  });
+  
+
+// Apply rate limiter to the resume import route
+router.post('/import-resume', passport.authenticate('jwt', { session: false }), resumeImportLimiter, upload.single('resume'), resumeController.importResume);
 
 
 // Add these new routes for viewing and editing the profile data
@@ -42,9 +66,13 @@ router.delete('/dashboard/:section/:itemId', passport.authenticate('jwt', { sess
 
 
 // router.post('/login', authController.login);
-router.post('/login', passport.authenticate('local', { session: false }), authController.login);
+// Apply rate limiter to the login route
+router.post('/login', loginLimiter, passport.authenticate('local', { session: false }), authController.login);
 
-router.post('/register', authController.register);
+
+// Apply rate limiter to the registration route
+router.post('/register', registerLimiter, authController.register);
+
 router.post('/forgot-password', authController.forgotPassword);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

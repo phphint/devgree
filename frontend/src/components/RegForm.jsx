@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 const RegForm = () => {
   const [fullName, setFullName] = useState("");
@@ -7,6 +9,10 @@ const RegForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null); // State for success message
+
+    // Ref for the invisible reCAPTCHA
+    const recaptchaRef = useRef(null);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,12 +25,19 @@ const RegForm = () => {
       return;
     }
 
+      // Execute reCAPTCHA and get the token
+  const recaptchaToken = await recaptchaRef.current.executeAsync();
+  recaptchaRef.current.reset();
+
+
     const user = {
       email,
       password,
       profile: {
         fullName, // This places fullName inside the profile object, as expected by your Mongoose model.
       },
+      recaptchaToken  // Add this line to include the token
+
     };
 
     try {
@@ -131,6 +144,14 @@ const RegForm = () => {
           <input type="checkbox" value="remember-me" /> Remember me
         </label>
       </div>
+
+
+        {/* Invisible reCAPTCHA */}
+        <ReCAPTCHA
+        ref={recaptchaRef}
+        size="invisible"
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY} // Replace with your reCAPTCHA site key
+      />
 
       {/* Submit Button */}
       <button className="w-100 btn btn-lg btn-primary" type="submit">

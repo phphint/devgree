@@ -124,6 +124,7 @@ const shareTokenSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    sparse: true,  // Add this line
   },
   expiresAt: {
     type: Date,
@@ -131,7 +132,7 @@ const shareTokenSchema = new mongoose.Schema({
   },
   visibility: {
     type: visibilitySchema,
-    default: () => ({}), // Default to all true as defined in visibilitySchema
+    default: () => ({}),
   },
 });
 
@@ -248,6 +249,8 @@ userSchema.add({
 
 // Middleware to hash the password before saving
 userSchema.pre("save", async function (next) {
+  console.log("Pre-save, shareTokens:", this.settings.shareTokens);
+
   if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
   }
