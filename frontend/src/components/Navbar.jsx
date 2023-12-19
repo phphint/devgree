@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'; 
 import { useSelector, useDispatch } from 'react-redux';  // Import at the top
 import { logout } from '../reducers/authSlice.js';  // Import your logout action creator from your auth slice
+import { ReactComponent as Logo } from '../logo4.svg';
 
  
 
@@ -29,6 +30,8 @@ const Navbar = () => {
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-between bg-dark text-white"> 
           <Link to="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <Logo style={{ width: 'auto', height: '44px', marginRight: '10px' }} />
+
             <span className="display-6 fw-bold">Devgree</span>
           </Link>
 

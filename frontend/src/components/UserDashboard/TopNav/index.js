@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 import MessagesMenu from "./MessagesMenu";
 import NotificationsMenu from "./NotificationsMenu";
 import AvatarMenu from "./AvatarMenu";
+import { ReactComponent as Logo } from '../../../logo4.svg';
+
 
 const TopNav = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-sm bg-dark navbar-dark text-white sticky-top px-4 py-0 flex-nowrap">
-        <Link className="navbar-brand d-flex me-4" to="/">
+        <Link className="navbar-brand d-flex me-4" to="/">          <Logo style={{ width: 'auto', height: '33px', marginRight: '5px' }} />
+
           <h2 className="mb-0">
-            <i className="fa fa-hashtag"></i>Devgree
+ Devgree
           </h2>
         </Link>
         <button
