@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"; // Import at the top
 import { logout } from "../reducers/authSlice.js"; // Import your logout action creator from your auth slice
 import { ReactComponent as Logo } from "../logo4.svg";
-import NavMenu from "./NavMenu"; // Import NavBar component
+import NavMenu from "./NavMenuResponsive"; // Import NavBar component
 import AuthModals from "./AuthModals"; // Import AuthModals component
 
 const Navbar = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
     <header className="devgree-header">
       <div
         className="nav-logo"
-        style={{ paddingLeft: "15px", padding: "20px" }}
+        style={{ paddingLeft: "15px",paddingRight: "0px", padding: "20px" }}
       >
         {" "}
         {/* Increased vertical padding */}

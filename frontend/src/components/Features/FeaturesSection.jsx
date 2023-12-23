@@ -84,24 +84,22 @@ const FeaturesSection = () => {
             {/* First Row with Background Image and Quoted Text */}
             <div className="row">
               <div
-                className="col"
+                className="col right-angle-bg"
                 style={{
                   backgroundImage: `url(${rightAngleBg})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "right", // centers the background image
                 }}
               >
-                <div style={{ padding: "50px 50px 150px 180px" }}>
-                  {" "}
-                  {/* Adjust padding as needed */}
-                  <blockquote className="elevate-blockquote">
-                    <p className="pt-3 ps-1">
-                    Devgree empowers tech professionals to uniquely showcase their skills and achievements.                     </p>
-                    <footer className="blockquote-footer">
-                      Devgree Devs
-                    </footer>
-                  </blockquote>
-                </div>
+              <div className="feature-quote-padding"> {/* Add a class name */}
+  <blockquote className="elevate-blockquote">
+    <p className="pt-3 ps-1">
+      Devgree empowers tech professionals to uniquely showcase their skills and achievements.
+    </p>
+    <footer className="blockquote-footer">
+      Devgree Devs
+    </footer>
+  </blockquote>
+</div>
+
               </div>
             </div>
 
@@ -110,7 +108,7 @@ const FeaturesSection = () => {
               {" "}
               {/* mt-3 adds margin-top for spacing */}
               <div className="col text-center">
-                <button className="btn elevate-button">Example Portfolio</button>
+                <button className="btn elevate-button mt-3">Example Portfolio</button>
               </div>
             </div>
           </div>

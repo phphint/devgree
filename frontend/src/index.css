@@ -104,12 +104,19 @@
   
   
   .nav-logo {
-    flex-basis: 450px; /* Adjust this width as needed */
     display: flex;
     align-items: center;
     background: linear-gradient(115deg, #292d50 70%, #3edfcd 70%);
-
+    flex-basis: 350px; /* Default width for larger screens */
   }
+  
+  /* Media query for mobile screens */
+  @media (max-width: 790px) {
+    .nav-logo {
+      flex-basis: 300px; /* Adjusted width for mobile screens */
+    }
+  }
+  
   
   .nav-menu {
     flex-grow: 1;
@@ -146,3 +153,143 @@
     color: #292c4f !important; /* Your desired color */
   }
   
+  .full-screen-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+     z-index: 1050; /* Above everything else */
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Full-Screen Nav Styles */
+.full-screen-nav {
+  background-color: #292c4f; /* Modal background color */
+}
+
+.full-screen-nav-content, .devgree-header .nav-menu  .full-screen-nav-content .nav-link {
+  color: #edeef3 !important; /* Font color */
+  font-size: 1.5rem; /* Larger font size */
+}
+
+.full-screen-nav-content a.nav-link {
+  display: block; /* Make links block for better touch targets */
+  margin: 10px 0; /* Spacing between links */
+  text-decoration: none; /* Optional: removes underline from links */
+}
+
+.full-screen-nav-content button.btn {
+  background-color: #54cdc8; /* Button background color */
+  color: white; /* Button text color */
+  border-radius: 50px; /* Very round corners */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Button padding */
+  font-size: 1.25rem; /* Button font size */
+  margin-top: 20px; /* Space above the button */
+}
+
+  
+  .full-screen-nav.active {
+    display: flex; /* Show when active */
+  }
+  
+  .full-screen-nav-content {
+    text-align: center;
+    color: white;
+  }
+
+  /* Hide full-screen nav on larger screens */
+@media (min-width: 768px) { /* Adjust the width according to your breakpoint for tablet/desktop */
+  .full-screen-nav {
+    display: none;
+  }
+}
+
+/* Additional styles for regular navbar (if needed) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Hide regular navbar toggle button on larger screens */
+@media (min-width: 768px) {
+  .navbar-toggle {
+    display: none;
+  }
+}
+
+  /* Hide navbar-collapse on screens wider than 768px */
+@media (min-width: 768px) {
+  .navbar-collapse.collapse.show, #responsive-navbar-nav {
+    display: none !important;
+  }
+}
+
+.navbar-toggler {
+  border-color: #313e5e; /* Custom border color */
+  color: #313e5e; /* Custom font/icon color */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23313e5e' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  /* Adjust the SVG path stroke color to match the font color */
+}
+
+
+.right-angle-bg {
+  background-repeat: no-repeat;
+  background-position: right;
+  min-height: 305px;
+}
+@media (max-width: 992px) { /* Adjust this breakpoint as needed for your tablet size */
+  .right-angle-bg {
+    background-position: left;
+  }
+}
+
+
+/* Default padding for larger screens */
+.feature-quote-padding {
+  padding: 50px 50px 150px 170px;
+}
+
+/* Override padding for tablet screens */
+@media (max-width: 1300px) { /* Adjust the breakpoint as needed for tablet sizes */
+  .feature-quote-padding {
+    padding: 0px 0px 0px 100px;
+
+  }
+}
+
+/* Override padding for tablet screens */
+@media (max-width: 992px) { /* Adjust the breakpoint as needed for tablet sizes */
+  .feature-quote-padding {
+    padding: 0px 0px 0px 170px;
+
+  }
+}
+/* CSS (in your stylesheet) */
+
+/* Footer links styles for larger screens */
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5rem; /* Adjust as needed */
+}
+
+/* Footer links styles for smaller screens (mobile devices) */
+@media (max-width: 700px) {
+  .footer-links {
+    display: block;
+    padding-top: 2rem; /* Adjust as needed */
+  }
+
+  .footer-links a {
+    display: block;
+    margin: 0.5rem 0; /* Adjust as needed */
+  }
+}

@@ -1,7 +1,7 @@
 // Footer.js
 import React from "react";
 import { Link } from "react-router-dom";
-import ContactModal from "./Contact/ContactModal"; // Import the new ContactModal component
+import ContactModal from "./Contact/ContactModal";
 import Copyright from "./Copyright";
 import footerBg from "../assets/images/devgree-footer-bg.png";
 
@@ -16,7 +16,7 @@ const Footer = () => {
       }}
       className="text-white py-3"
     >
-      <div className="d-flex justify-content-between me-5 ms-5  pt-5">
+      <div className="footer-links me-5 ms-5">
         <div>
           <Link to="/privacy" className="text-white me-4">
             Privacy Policy
@@ -36,7 +36,7 @@ const Footer = () => {
         <Copyright />
       </div>
 
-      <ContactModal /> {/* Use the ContactModal component here */}
+      <ContactModal />
     </footer>
   );
 };
