@@ -6,9 +6,6 @@ import Footer from "../Footer";
 import FeaturesSection from "./FeaturesSection";
 import Banner4 from "../Banner4";
 
-
-import RegSection from ".././RegSection";
-
 const FeaturesPage = () => {
 
   const schemaOrgService = {

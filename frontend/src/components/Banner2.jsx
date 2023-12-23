@@ -148,11 +148,10 @@ const FullHeightBanner = () => {
  
 
       {/* Scroll Down Arrow */}
-      <a
-        href="#featuresBlock"
-        className="scroll-down-arrow"
-        style={{ backgroundImage: `url(${arrowDownImage})` }}
-      ></a>
+    {/* Scroll Down Arrow */}
+<a href="#featuresBlock" className="scroll-down-arrow" aria-label="Scroll down to features">
+  <img src={arrowDownImage} alt="Scroll down to see features" />
+</a>
     </div>
   );
 };

@@ -39,15 +39,23 @@ const NavMenu = () => {
           </NavLink>
         </Nav.Item>
         <Nav.Item className="text-center">
-          {/* For the Contact link, since it opens a modal, you may handle its active state separately */}
-          <a
-            href="#"
-            className="nav-link text-white"
+          {/* Change the <a> tag to a <button> */}
+          <button
+            className="nav-link text-white btn btn-link p-0 align-baseline"
             data-bs-toggle="modal"
             data-bs-target="#contactModal"
+            style={{ 
+              backgroundColor: 'transparent', 
+              border: 'none',
+              marginTop: '8px',
+              marginLeft: '8px',
+              textDecoration: 'none',
+              display: 'block',
+              width: '100%'
+            }}
           >
             Contact
-          </a>
+          </button>
         </Nav.Item>
       </Nav>
     </>

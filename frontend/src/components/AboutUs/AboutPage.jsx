@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet";
 // Import the components
 import Navbar from "../Navbar";
 import Footer from "../Footer";
-import RegSection from "../RegSection";
  import Banner3 from "../Banner3";
 
 const AboutPage = () => {
