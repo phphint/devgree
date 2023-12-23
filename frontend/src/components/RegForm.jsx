@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 
 
@@ -12,6 +12,15 @@ const RegForm = () => {
 
     // Ref for the invisible reCAPTCHA
     const recaptchaRef = useRef(null);
+
+   // Generate unique IDs for each form field
+   const uniqueId = useMemo(() => Math.random().toString(36).substr(2, 9), []);
+   const fullNameId = `floatingFullName-${uniqueId}`;
+   const emailId = `floatingInput-${uniqueId}`;
+   const passwordId = `floatingPassword-${uniqueId}`;
+   const confirmPasswordId = `floatingConfirmPassword-${uniqueId}`;
+ 
+
 
 
   const handleSubmit = async (event) => {
@@ -71,7 +80,7 @@ const RegForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="p-4 p-md-5 border rounded-3 bg-light text-dark">
-      {errorMessage && (
+    {errorMessage && (
         <div className="alert alert-danger" role="alert">
           {errorMessage}
         </div>
@@ -81,19 +90,21 @@ const RegForm = () => {
           {successMessage}
         </div>
       )}
-      {/* ... rest of the form fields ... */}
-           {/* Full Name Field */}
-           <div className="form-floating mb-3">
+      {/* Error and success messages */}
+      {/* ... */}
+
+      {/* Full Name Field */}
+      <div className="form-floating mb-3">
         <input
           type="text"
           className="form-control"
-          id="floatingFullName"
+          id={fullNameId}
           placeholder="John Doe"
-          value={fullName} // Add this line
-          onChange={(e) => setFullName(e.target.value)} // And this line
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
           required
         />
-        <label htmlFor="floatingFullName">Full Name</label>
+        <label htmlFor={fullNameId}>Full Name</label>
       </div>
 
       {/* Email Field */}
@@ -101,13 +112,13 @@ const RegForm = () => {
         <input
           type="email"
           className="form-control"
-          id="floatingInput"
+          id={emailId}
           placeholder="name@example.com"
-          value={email} // Add this line
-          onChange={(e) => setEmail(e.target.value)} // And this line
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <label htmlFor="floatingInput">Email address</label>
+        <label htmlFor={emailId}>Email address</label>
       </div>
 
       {/* Password Field */}
@@ -115,13 +126,13 @@ const RegForm = () => {
         <input
           type="password"
           className="form-control"
-          id="floatingPassword"
+          id={passwordId}
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <label htmlFor="floatingPassword">Password</label>
+        <label htmlFor={passwordId}>Password</label>
       </div>
 
       {/* Confirm Password Field */}
@@ -129,13 +140,13 @@ const RegForm = () => {
         <input
           type="password"
           className="form-control"
-          id="floatingConfirmPassword"
+          id={confirmPasswordId}
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <label htmlFor="floatingConfirmPassword">Confirm Password</label>
+        <label htmlFor={confirmPasswordId}>Confirm Password</label>
       </div>
 
       {/* Remember Me Checkbox */}
