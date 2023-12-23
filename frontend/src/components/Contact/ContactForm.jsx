@@ -65,7 +65,7 @@ const ContactForm = () => {
             </div>
 
             {/* Submit Button */}
-            <button className="w-100 btn btn-lg btn-primary" type="submit">Send Message</button>
+            <button className="w-100 btn btn-lg elevate-custom-button text-white" type="submit">Send Message</button>
             <hr className="my-4" />
             <small className="text-muted">We respect your privacy and will not share your information.</small>
         </form>

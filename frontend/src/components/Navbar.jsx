@@ -1,97 +1,115 @@
-import { Link } from 'react-router-dom'; 
-import { useSelector, useDispatch } from 'react-redux';  // Import at the top
-import { logout } from '../reducers/authSlice.js';  // Import your logout action creator from your auth slice
-import { ReactComponent as Logo } from '../logo4.svg';
-
- 
-
-
-import RegForm from './RegForm';  
-import LoginForm from './LoginForm';      
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux"; // Import at the top
+import { logout } from "../reducers/authSlice.js"; // Import your logout action creator from your auth slice
+import { ReactComponent as Logo } from "../logo4.svg";
+import NavMenu from "./NavMenu"; // Import NavBar component
+import AuthModals from "./AuthModals"; // Import AuthModals component
 
 const Navbar = () => {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);  // Access isLoggedIn from the state
-  const dispatch = useDispatch();  // Create a dispatch function
-  
- 
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // Access isLoggedIn from the state
+  const dispatch = useDispatch(); // Create a dispatch function
 
-
-    // Handler function for logout button
-    const handleLogout = () => {
-        dispatch(logout());  // Dispatch the logout action
-      };
-
-   
-    
-
+  // Handler function for logout button
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout action
+  };
 
   return (
-    <header className="p-3">
-      <div className="container">
-        <div className="d-flex flex-wrap align-items-center justify-content-between bg-dark text-white"> 
-          <Link to="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <Logo style={{ width: 'auto', height: '44px', marginRight: '10px' }} />
+    <>
+    <header className="devgree-header">
+      <div
+        className="nav-logo"
+        style={{ paddingLeft: "15px", padding: "20px" }}
+      >
+        {" "}
+        {/* Increased vertical padding */}
+        <Link
+          to="/"
+          className="d-flex align-items-center text-white text-decoration-none"
+        >
+          <Logo
+            style={{ width: "auto", height: "44px", marginRight: "10px" }}
+          />
+          <span className="display-6 fw-bold">Devgree</span>
+        </Link>
+      </div>
 
-            <span className="display-6 fw-bold">Devgree</span>
-          </Link>
-
-          <ul className="nav mb-2 justify-content-center mb-md-0">
-            <li><Link to="/" className="nav-link px-2 text-white">Home</Link></li>
-            <li><Link to="/features" className="nav-link px-2 text-white">Features</Link></li>   
-            <li><Link to="/about" className="nav-link px-2 text-white">About</Link></li>
-          </ul>
-
-          <div className="text-end">
+      <div
+        className="nav-menu d-flex align-items-center justify-content-between"
+        style={{ paddingRight: "15px", padding: "20px 0" }}
+      >
+        {" "}
+        {/* Increased vertical padding */}
+        <NavMenu />
+        <div className="text-end">
           {isLoggedIn ? (
-              // Show dashboard and logout buttons when logged in
-              <>
-                <Link to="/dashboard" className="btn btn-warning me-2">Dashboard</Link>
+            // Show dashboard and logout buttons when logged in
+            <>
+              <Link
+                to="/dashboard"
+                className="btn me-2"
+                style={{
+                  backgroundColor: "#e14549", // Change background color
+                  color: "white", // Assuming you want white text
+                  borderRadius: "50px", // Very round corners
+                }}
+              >
+                Dashboard
+              </Link>
 
-                <button type="button" className="btn btn-outline-light" onClick={handleLogout}>Logout</button>
-              </>
-            ) : (
+              <button
+                type="button"
+                className="btn btn-outline-light me-4"
+                style={{
+                  color: "#292c4f", // Font color
+                  borderColor: "#292c4f", // Outline color
+                  borderRadius: "50px", // Very round corners
+                }}
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            // Show login and signup buttons when not logged in
+            <>
+              <button
+                type="button"
+                className="btn btn-outline-light me-2"
+                style={{
+                  color: "#292c4f", // Font color
+                  borderColor: "#292c4f", // Outline color
+                  borderRadius: "50px", // Very round corners
+                }}
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+              >
+                Login
+              </button>
 
-              // Show login and signup buttons when not logged in
-              <>
-                <button type="button" className="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-                <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModal">Sign-up</button>
-              </>
-            )}
-          </div>
+              <button
+                type="button"
+                className="btn me-4"
+                style={{
+                  backgroundColor: "#e14549", // Change background color
+                  color: "white", // Assuming you want white text
+                  borderRadius: "50px", // Very round corners
+                }}
+                data-bs-toggle="modal"
+                data-bs-target="#signupModal"
+              >
+                Sign-up
+              </button>
+            </>
+          )}
         </div>
       </div>
-      
-      {/* Login Modal */}
-      <div className="modal fade" id="loginModal" tabIndex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title text-dark" id="loginModalLabel">Login</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-            <LoginForm />   
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Signup Modal */}
-      <div className="modal fade" id="signupModal" tabIndex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title text-dark" id="signupModalLabel">Sign Up</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <RegForm />
-            </div>
-          </div>
-        </div>
-      </div>
+
+    
     </header>
+      <AuthModals />
+    </>
   );
-}
+};
 
 export default Navbar;

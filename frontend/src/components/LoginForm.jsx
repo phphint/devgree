@@ -132,7 +132,8 @@ const LoginForm = ({ handleClose }) => {
           Remember me
         </label>
       </div>
-      <button className="w-100 btn btn-lg btn-primary" type="submit">
+      <button className="w-100 btn btn-lg elevate-custom-button text-white" type="submit">
+
         Login
       </button>
       <hr className="my-4" />

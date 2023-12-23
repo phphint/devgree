@@ -12,3 +12,137 @@
     }
   }
   
+
+  @keyframes breathing {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1); /* Adjust the scale value as needed */
+    }
+  }
+  
+  .scroll-down-arrow {
+    position: absolute;
+    bottom: 20px;
+    left: 48%;
+    transform: translateX(-50%) scale(1);
+    display: inline-block;
+    width: 73px;
+    height: 73px;
+    background-size: cover;
+    cursor: pointer;
+    animation: breathing 2s ease-in-out infinite; /* Apply the animation */
+  }
+  
+  
+  .scroll-down-arrow:hover {
+    transform: translateX(-50%) scale(1.2); /* Enlarge on hover */
+  }
+  
+
+ 
+
+  .custom-bg-dark {
+    background-color:#1f2c3f;
+  }
+
+  .custom-text-white {
+    color: #999ea1;
+  }
+
+  .feature-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+
+  .elevate-button {
+    background-color: #464588; /* Custom background color */
+    color: #a8aad1; /* Custom font color */
+    border-radius: 50px; /* Very round corners */
+  }
+  
+
+  .elevate-blockquote {
+    position: relative;
+  }
+  
+  .elevate-blockquote::before,
+  .elevate-blockquote::after {
+    color: #7be2de; /* Custom color for quote marks */
+    font-size: 2rem; /* Adjust size as needed */
+  }
+  
+  .elevate-blockquote::before {
+    content: "“"; /* Opening quote */
+    position: absolute;
+    left: -10px; /* Adjust position as needed */
+    top: 0;
+  }
+  
+  .elevate-blockquote::after {
+    content: "”"; /* Closing quote */
+    position: absolute;
+    right: -10px; /* Adjust position as needed */
+    bottom: 0;
+  }
+  
+  .elevate-custom-button {
+    background-color: #2e7a87; /* Custom button color */
+    border-color: #2e7a87; /* Custom border color if needed */
+    border-radius: 50px; /* Very round corners */
+    
+  }
+  
+  .devgree-header {
+    display: flex;
+
+    /* Other necessary styling */
+  }
+  
+  
+  .nav-logo {
+    flex-basis: 450px; /* Adjust this width as needed */
+    display: flex;
+    align-items: center;
+    background: linear-gradient(115deg, #292d50 70%, #3edfcd 70%);
+
+  }
+  
+  .nav-menu {
+    flex-grow: 1;
+  }
+  .nav-menu {
+    background-color: #3edfcd;
+    /* Other styles for nav-menu */
+  }
+  .banner3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Adjust the height as necessary */
+  }
+  .elevate-bg-dark {
+    background-color: #1d233d;
+    color: white;
+  }
+  .about-image-circle {
+    border-radius: 50%; /* Makes the image round */
+    border: 3px solid #333; /* Adds a border around the image. Change the color as needed */
+    width: 100%; /* Adjust as needed */
+    height: auto; /* Adjust as needed */
+    object-fit: cover; /* Ensures the image covers the circular area without being distorted */
+  }
+  .devgree-header {
+    /* Other styles */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4); /* Horizontal offset, vertical offset, blur radius, color */
+    position: relative;
+    z-index: 1000; /* High value to ensure it's above other elements */
+  }
+  .devgree-header .nav-menu .nav-link {
+    color: #292c4f !important; /* Your desired color */
+  }
+  

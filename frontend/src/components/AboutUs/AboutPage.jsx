@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import RegSection from "../RegSection";
-import aboutImage from "../../assets/images/About_Devgree.jpg";
+ import Banner3 from "../Banner3";
 
 const AboutPage = () => {
   const structuredData = {
@@ -18,7 +18,8 @@ const AboutPage = () => {
       "Devgree is dedicated to enabling tech professionals to uniquely showcase their expertise, projects, and accomplishments with innovative portfolio solutions.",
     email: "info@devgree.com",
   };
-  
+  const paragraphStyle = { fontSize: '1rem' }; // Adjust the font size as needed
+
   return (
     <>
       <Helmet>
@@ -36,53 +37,50 @@ const AboutPage = () => {
         </script>
       </Helmet>
 
-      <div className="min-h-screen flex flex-col bg-dark text-white">
+      <div className="min-h-screen flex flex-col elevate-bg-dark">
         <Navbar />
-
-        <section className="flex-grow-1 d-flex align-items-center p-5 bg-white text-dark vh-100">
+<Banner3/> 
+        <section className="flex-grow-1 d-flex align-items-center p-5 ">
           <div className="container">
             <div className="row">
-              <div className="col-md-6">
-                <h2 className="mb-4">About Devgree</h2>
-                <p>
+              <div className="">
+                <h1 className="mb-4">About Devgree</h1>
+                <p style={paragraphStyle}>
+
                   Devgree is dedicated to enabling tech professionals to
                   distinctively showcase their expertise, projects, and
                   accomplishments. Our platform is meticulously crafted,
                   offering innovative solutions for creating a standout presence
                   in the competitive tech landscape.
                 </p>
-                <p>
+                <p style={paragraphStyle}>
+
                   We give you the tools to craft a portfolio that truly
                   encapsulates your personal brand and professional milestones.
                   With Devgree, you take control of your narrative in the tech
                   space.
                 </p>
-                <p>
+                <p style={paragraphStyle}>
+
                   Privacy and customization are at the core of what we offer.
                   You have the autonomy to manage the visibility of your
                   portfolio components, ensuring your work is shared on your
                   terms.
                 </p>
-                <p>
+                <p style={paragraphStyle}>
+
                   Committed to serving the ever-changing needs of tech
                   professionals, Devgree is at the vanguard of the portfolio
                   curation movement. Join us on this journey to professional
                   distinction.
                 </p>
               </div>
-              <div className="col-md-6">
-                {/* Placeholder for an image or any other visual content */}
-                <img
-                  src={aboutImage}
-                  alt="Visual representation of Devgree's impact"
-                  className="img-fluid"
-                />
-              </div>
+          
             </div>
           </div>
         </section>
 
-        <RegSection />
+      
         <Footer />
       </div>
     </>

@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import FeaturesSection from "./FeaturesSection";
+import Banner4 from "../Banner4";
+
 
 import RegSection from ".././RegSection";
 
@@ -41,10 +43,10 @@ const FeaturesPage = () => {
 
       <div className="min-h-screen flex flex-col bg-dark text-white">
         <Navbar />
-
+<Banner4/>
         <FeaturesSection /> 
 
-        <RegSection />
+ 
         <Footer />
       </div>
     </>

@@ -154,7 +154,7 @@ const RegForm = () => {
       />
 
       {/* Submit Button */}
-      <button className="w-100 btn btn-lg btn-primary" type="submit">
+      <button className="w-100 btn btn-lg elevate-custom-button text-white" type="submit">
         Sign Up for Free
       </button>
       <hr className="my-4" />

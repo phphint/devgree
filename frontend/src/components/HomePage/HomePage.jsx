@@ -2,8 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 
 // Import the components
-import Navbar from ".././Navbar";
-import Banner from ".././Banner";
+ import Banner2 from ".././Banner2";
 import RegSection from ".././RegSection";
 import Footer from ".././Footer";
 import FeaturesSection from ".././Features/FeaturesSection";
@@ -44,8 +43,7 @@ const HomePage = () => {
       </Helmet>
 
       <div className="min-vh-100 flex flex-col bg-dark text-white">
-        <Navbar />
-        <Banner />
+         <Banner2 />
         <FeaturesSection />
         <RegSection />
         <Footer />
