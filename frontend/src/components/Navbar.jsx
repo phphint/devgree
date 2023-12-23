@@ -88,18 +88,19 @@ const Navbar = () => {
               </button>
 
               <button
-                type="button"
-                className="btn me-4"
-                style={{
-                  backgroundColor: "#e14549", // Change background color
-                  color: "white", // Assuming you want white text
-                  borderRadius: "50px", // Very round corners
-                }}
-                data-bs-toggle="modal"
-                data-bs-target="#signupModal"
-              >
-                Sign-up
-              </button>
+  type="button"
+  className="btn me-4 d-none d-md-inline-block" // Added classes to hide on mobile
+  style={{
+    backgroundColor: "#e14549", // Change background color
+    color: "white", // Assuming you want white text
+    borderRadius: "50px", // Very round corners
+  }}
+  data-bs-toggle="modal"
+  data-bs-target="#signupModal"
+>
+  Sign-up
+</button>
+
             </>
           )}
         </div>

@@ -14,11 +14,9 @@ const FeaturesSection = () => {
   }
 
   return (
-    <section
-      className={`flex-grow-1 p-5 ${bgColor} ${textColor}`}
-      id="featuresBlock"
-    >
-      <div className="container px-4 py-5 ">
+    <section className={`flex-grow-1 py-5 px-2 px-md-5 ${bgColor} ${textColor}`} id="featuresBlock">
+
+      <div className="container px-2 py-5 px-md-4 ">
         <h4 className="pb-2 -bottom">Features</h4>
         <p className="lead">
           Discover what makes Devgree the preferred choice for tech
@@ -89,17 +87,17 @@ const FeaturesSection = () => {
                   backgroundImage: `url(${rightAngleBg})`,
                 }}
               >
-              <div className="feature-quote-padding"> {/* Add a class name */}
-  <blockquote className="elevate-blockquote">
-    <p className="pt-3 ps-1">
-      Devgree empowers tech professionals to uniquely showcase their skills and achievements.
-    </p>
-    <footer className="blockquote-footer">
-      Devgree Devs
-    </footer>
-  </blockquote>
-</div>
-
+                <div className="feature-quote-padding">
+                  {" "}
+                  {/* Add a class name */}
+                  <blockquote className="elevate-blockquote">
+                    <p className="pt-3 ps-1">
+                      Devgree empowers tech professionals to uniquely showcase
+                      their skills and achievements.
+                    </p>
+                    <footer className="blockquote-footer">Devgree Devs</footer>
+                  </blockquote>
+                </div>
               </div>
             </div>
 
@@ -108,7 +106,9 @@ const FeaturesSection = () => {
               {" "}
               {/* mt-3 adds margin-top for spacing */}
               <div className="col text-center">
-                <button className="btn elevate-button mt-3">Example Portfolio</button>
+                <button className="btn elevate-button mt-3">
+                  Example Portfolio
+                </button>
               </div>
             </div>
           </div>

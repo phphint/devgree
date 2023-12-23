@@ -129,7 +129,7 @@ const FullHeightBanner = () => {
         {/* Third Row: Title and Text */}
         <Row>
           <Col className="text-center">
-            <h1 style={{ fontSize: "8rem", color: "#6d8896" }}>Elevate</h1>{" "}
+            <h1 className="elevate-text" style={{ fontSize: "8rem", color: "#6d8896" }}>Elevate</h1>{" "}
             {/* Elevate text color */}
             <p style={{ fontSize: "2rem" }}>
               <span style={{ color: "#fbc6c6" }}>Your</span>{" "}

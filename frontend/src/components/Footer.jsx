@@ -39,7 +39,9 @@ const Footer = () => {
             Contact
           </button>
         </div>
-        <Copyright />
+        <div className="copyright-footer">
+          <Copyright />
+        </div>
       </div>
 
       <ContactModal />
