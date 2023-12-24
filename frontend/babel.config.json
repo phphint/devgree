@@ -1,0 +1,11 @@
+{
+    "presets": [
+      "@babel/preset-env",   // Transpile ES6 and beyond into older versions of JavaScript
+      "@babel/preset-react"  // Transpile JSX into JavaScript
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime", // Enables the re-use of Babel's injected helper code to save on codesize.
+      "@babel/plugin-proposal-class-properties" // Enables support for class properties in JavaScript classes.
+    ]
+  }
+  

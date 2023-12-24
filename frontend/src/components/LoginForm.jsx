@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../reducers/authSlice"; // Import the action
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import Cookie from "js-cookie";
 
 const LoginForm = ({ handleClose }) => {
   const [email, setEmail] = useState("");
@@ -43,6 +44,9 @@ const LoginForm = ({ handleClose }) => {
 
       // Store the token in localStorage
       localStorage.setItem("authToken", token);
+
+      // Set the cookie
+      Cookie.set("authToken", token, { expires: 33 }); // Expires in 7 days
 
       // Dispatch the login action with all the fields
       dispatch(
@@ -132,8 +136,10 @@ const LoginForm = ({ handleClose }) => {
           Remember me
         </label>
       </div>
-      <button className="w-100 btn btn-lg elevate-custom-button text-white" type="submit">
-
+      <button
+        className="w-100 btn btn-lg elevate-custom-button text-white"
+        type="submit"
+      >
         Login
       </button>
       <hr className="my-4" />
