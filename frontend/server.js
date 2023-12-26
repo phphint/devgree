@@ -20,6 +20,10 @@ const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 
 // Function to replace asset paths in HTML content
 function replaceAssetPaths(htmlContent, manifest) {
+  console.log("replaceAssetPaths called");
+  console.log("Manifest files:", manifest.files);
+
+
   Object.keys(manifest.files).forEach(key => {
     if (key.endsWith('.css') || key.endsWith('.js')) {
       const pattern = new RegExp(key, 'g');
@@ -75,6 +79,9 @@ app.use('/static', express.static(path.join(__dirname, 'build', 'static')));
 
 
 app.get('*', (req, res) => {
+
+  console.log(`Wildcard handler hit for path: ${req.path}`);
+
   const userAgent = req.headers['user-agent'].toLowerCase();
   const isBot = botUserAgents.some(botAgent => userAgent.includes(botAgent));
 
