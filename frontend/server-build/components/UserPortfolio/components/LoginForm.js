@@ -56,9 +56,7 @@ const LoginForm = _ref => {
       localStorage.setItem("authToken", token);
 
       // Set the cookie
-      _jsCookie.default.set("authToken", token, {
-        expires: 33
-      }); // Expires in 7 days
+      // Cookie.set("authToken", token, { expires: 33 }); // Expires in 7 days
 
       // Dispatch the login action with all the fields
       dispatch((0, _authSlice.login)({

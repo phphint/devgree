@@ -46,7 +46,7 @@ const LoginForm = ({ handleClose }) => {
       localStorage.setItem("authToken", token);
 
       // Set the cookie
-      Cookie.set("authToken", token, { expires: 33 }); // Expires in 7 days
+     // Cookie.set("authToken", token, { expires: 33 }); // Expires in 7 days
 
       // Dispatch the login action with all the fields
       dispatch(
