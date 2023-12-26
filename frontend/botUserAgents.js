@@ -36,5 +36,6 @@ module.exports = [
   'Chrome-Lighthouse',
   'TelegramBot',
   'SeznamBot',
+  'GPTBot',
   // ... other bot user agents
 ];

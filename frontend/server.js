@@ -23,16 +23,17 @@ function replaceAssetPaths(htmlContent, manifest) {
   console.log("replaceAssetPaths called");
   console.log("Manifest files:", manifest.files);
 
+  // Regular expression patterns for main.js and main.css
+  const jsPattern = /\/static\/js\/main\.[a-z0-9]+\.js/g;
+  const cssPattern = /\/static\/css\/main\.[a-z0-9]+\.css/g;
 
-  Object.keys(manifest.files).forEach(key => {
-    if (key.endsWith('.css') || key.endsWith('.js')) {
-      const pattern = new RegExp(key, 'g');
-      console.log(`Replacing ${key} with ${manifest.files[key]}`); // Debug log
-      htmlContent = htmlContent.replace(pattern, manifest.files[key]);
-    }
-  });
+  // Replace js and css paths
+  htmlContent = htmlContent.replace(jsPattern, manifest.files['main.js']);
+  htmlContent = htmlContent.replace(cssPattern, manifest.files['main.css']);
+
   return htmlContent;
 }
+
 
 
 const app = express();
