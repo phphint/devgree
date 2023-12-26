@@ -3,7 +3,12 @@ const fs = require('fs');
 const path = require('path');
 
 async function renderPage(url) {
-	const browser = await puppeteer.launch({ headless: "new" });
+  const browser = await puppeteer.launch({
+    headless: "new",
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+  
+  
   
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle2' });
