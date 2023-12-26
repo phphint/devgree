@@ -20,10 +20,10 @@ const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 
 // Function to replace asset paths in HTML content
 function replaceAssetPaths(htmlContent, manifest) {
-  // Replace CSS and JS paths
   Object.keys(manifest.files).forEach(key => {
     if (key.endsWith('.css') || key.endsWith('.js')) {
       const pattern = new RegExp(key, 'g');
+      console.log(`Replacing ${key} with ${manifest.files[key]}`); // Debug log
       htmlContent = htmlContent.replace(pattern, manifest.files[key]);
     }
   });
@@ -31,12 +31,13 @@ function replaceAssetPaths(htmlContent, manifest) {
 }
 
 
-
 const app = express();
 app.use(compression());
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/static', express.static(path.join(__dirname, 'build', 'static')));
+
 // Path to the asset-manifest.json file
 
 
