@@ -96,10 +96,10 @@ app.get('*', (req, res) => {
     
     if (fs.existsSync(htmlFilePath)) {
       let htmlContent = fs.readFileSync(htmlFilePath, 'utf8');
-      console.log("Original HTML Content: ", htmlContent); // Log original content
+      //console.log("Original HTML Content: ", htmlContent); // Log original content
 
       htmlContent = replaceAssetPaths(htmlContent, manifest);
-      console.log("Modified HTML Content: ", htmlContent); // Log modified content
+      //console.log("Modified HTML Content: ", htmlContent); // Log modified content
 
       res.send(htmlContent);
     } else {
