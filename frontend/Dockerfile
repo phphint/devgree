@@ -1,45 +1,16 @@
 FROM node:20.9.0-slim
 
-# Set working directory
-WORKDIR /app 
+WORKDIR /app
 
-
-ENV NODE_ENV=${NODE_ENV}
+# Copy package.json and package-lock.json
+#COPY package*.json ./
 
 # Install dependencies
-COPY package*.json ./
-RUN if [ "$NODE_ENV" = "development" ]; then \
-        npm install; \
-    else \
-        npm install --only=production; \
-    fi
+#RUN npm install
 
-# Change ownership of the app directory to the 'node' user
-RUN chown -R node:node /app
+# Copy other necessary files and directories (such as your server.js)
+#COPY . .
 
-# Switch to 'node' user
-USER node
+# Your other Dockerfile commands...
 
-# Copy app source
-COPY --chown=node:node . .
-
-# Install Express server for serving the build in production
-# This is done as root because global installs might need root access
-USER root
-RUN if [ "$NODE_ENV" = "production" ]; then \
-        npm install express; \
-    fi
-
-# Copy express server script
-COPY --chown=node:node server.js ./
-
-# Switch back to 'node' user to run the app
-USER node
-
-# Build app for production
-RUN if [ "$NODE_ENV" = "production" ]; then \
-        npm run build; \
-    fi
-
-# Start command
-CMD ["/bin/sh", "-c", "if [ \"$NODE_ENV\" = 'production' ]; then node server.js; else npm start; fi"]
+CMD ["/bin/sh", "-c", "if [ \"$NODE_ENV\" = 'production' ]; then ./build_script.sh && node server.js; else npm start; fi"]
