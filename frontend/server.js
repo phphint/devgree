@@ -35,8 +35,8 @@ const app = express();
 app.use(compression());
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, 'build')));
-app.use('/static', express.static(path.join(__dirname, 'build', 'static')));
+ 
+
 
 // Path to the asset-manifest.json file
 
@@ -70,6 +70,10 @@ app.use('/static', express.static(path.join(__dirname, 'build', 'static')));
 
 //});
 
+app.use(express.static(path.join(__dirname, 'build')));
+app.use('/static', express.static(path.join(__dirname, 'build', 'static')));
+
+
 app.get('*', (req, res) => {
   const userAgent = req.headers['user-agent'].toLowerCase();
   const isBot = botUserAgents.some(botAgent => userAgent.includes(botAgent));
@@ -77,9 +81,14 @@ app.get('*', (req, res) => {
   if (isBot) {
     const route = req.path === '/' ? 'home' : req.path.substring(1);
     const htmlFilePath = path.join(__dirname, 'rendered', `${route}.html`);
-    let htmlContent = fs.readFileSync(htmlFilePath, 'utf8');
-    htmlContent = replaceAssetPaths(htmlContent, manifest);
-    res.send(htmlContent);
+    
+    if (fs.existsSync(htmlFilePath)) {
+      let htmlContent = fs.readFileSync(htmlFilePath, 'utf8');
+      htmlContent = replaceAssetPaths(htmlContent, manifest);
+      res.send(htmlContent);
+    } else {
+      res.status(404).send('Page not found');
+    }
   } else {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   }
