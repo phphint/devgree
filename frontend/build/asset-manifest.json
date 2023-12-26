@@ -1,24 +1,30 @@
 {
   "files": {
-    "main.css": "/static/css/main.64c33187.css",
-    "main.js": "/static/js/main.2f54fc2f.js",
+    "main.css": "/static/css/main.d189e784.css",
+    "main.js": "/static/js/main.f99aaaa4.js",
+    "static/js/801.ee916c06.chunk.js": "/static/js/801.ee916c06.chunk.js",
+    "static/media/banner-background.png": "/static/media/banner-background.bbd4d152c0bdb19e6272.png",
+    "static/media/elevate-signup-bg.png": "/static/media/elevate-signup-bg.238043f2f56a01940adc.png",
     "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.d75e3fd1eb12e9bd6655.ttf",
+    "static/media/banner3-2.png": "/static/media/banner3-2.244fe861183916626afb.png",
     "static/media/fa-brands-400.ttf": "/static/media/fa-brands-400.016b4a6cdced82ab3aa1.ttf",
     "static/media/Elevate_Your_Tech_Portfolio.png": "/static/media/Elevate_Your_Tech_Portfolio.842a19e354919f00e965.png",
-    "static/media/Elevate_Your_Tech_Portfolio.jpg": "/static/media/Elevate_Your_Tech_Portfolio.1a205d4a7e58daa0fe09.jpg",
     "static/media/fa-solid-900.woff2": "/static/media/fa-solid-900.b6879d41b0852f01ed5b.woff2",
+    "static/media/devgree-footer-bg.png": "/static/media/devgree-footer-bg.0712627dd0214c13d66b.png",
     "static/media/fa-brands-400.woff2": "/static/media/fa-brands-400.878f31251d960bd6266f.woff2",
-    "static/media/About_Devgree.jpg": "/static/media/About_Devgree.25eee9f4ff3484b59ad2.jpg",
+    "static/media/right-angle-bg.png": "/static/media/right-angle-bg.99357629a074611d6a5a.png",
     "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.50701fbb8177c2dde530.ttf",
     "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.b041b1fa4fe241b23445.woff2",
     "static/media/fa-v4compatibility.ttf": "/static/media/fa-v4compatibility.c6a0c95b0a95c4553700.ttf",
     "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.1bac2991f3dbfa237aec.woff2",
+    "static/media/logo4.svg": "/static/media/logo4.a538f1868d72eb9b2d35fabfc0ca5040.svg",
     "index.html": "/index.html",
-    "main.64c33187.css.map": "/static/css/main.64c33187.css.map",
-    "main.2f54fc2f.js.map": "/static/js/main.2f54fc2f.js.map"
+    "main.d189e784.css.map": "/static/css/main.d189e784.css.map",
+    "main.f99aaaa4.js.map": "/static/js/main.f99aaaa4.js.map",
+    "801.ee916c06.chunk.js.map": "/static/js/801.ee916c06.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.64c33187.css",
-    "static/js/main.2f54fc2f.js"
+    "static/css/main.d189e784.css",
+    "static/js/main.f99aaaa4.js"
   ]
 }
