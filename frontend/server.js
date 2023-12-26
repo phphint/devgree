@@ -83,10 +83,14 @@ app.get('*', (req, res) => {
   console.log(`Wildcard handler hit for path: ${req.path}`);
 
   const userAgent = req.headers['user-agent'].toLowerCase();
+  console.log(`User Agent: ${userAgent}`);
+
   const isBot = botUserAgents.some(botAgent => userAgent.includes(botAgent));
 
   if (isBot) {
     const route = req.path === '/' ? 'home' : req.path.substring(1);
+    console.log(`Serving pre-rendered file for route: ${route}`);
+
     const htmlFilePath = path.join(__dirname, 'rendered', `${route}.html`);
     
     if (fs.existsSync(htmlFilePath)) {
