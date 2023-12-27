@@ -1,7 +1,7 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit'; // Corrected import
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import authReducer from '../reducers/authSlice';
+import storage from 'redux-persist/lib/storage';
+import authReducer, { logout } from '../reducers/authSlice';
 import uiReducer from '../reducers/uiSlice';
 import userPortfolioReducer from '../reducers/userPortfolioSlice';
 import dashboardReducer from '../reducers/dashboardSlice';
@@ -9,15 +9,21 @@ import dashboardReducer from '../reducers/dashboardSlice';
 const persistConfig = {
   key: 'root',
   storage,
-  // Add other configurations if needed
 };
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   auth: authReducer,
   ui: uiReducer,
   userPortfolio: userPortfolioReducer,
-  dashboard: dashboardReducer, // Adding the dashboard reducer
+  dashboard: dashboardReducer,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === logout.type) {
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -26,10 +32,9 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['auth/updateProfile','persist/PERSIST', 'persist/REHYDRATE', 'persist/REGISTER'],
+        ignoredActions: ['auth/updateProfile', 'persist/PERSIST', 'persist/REHYDRATE', 'persist/REGISTER'],
       },
     }),
-  // Add any other middleware or enhancers if needed
 });
 
 export const persistor = persistStore(store);

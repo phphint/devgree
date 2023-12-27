@@ -27,7 +27,7 @@ async function saveRenderedPages(baseURL, routes) {
     }
   }
   
-  const baseURL = 'https://www.devgree.com'; // Your app's URL
+  const baseURL = 'http://localhost:3000'; // Your app's URL
   const routes = ['home', 'about', 'privacy', 'features', 'terms']; // 'home' represents the root route '/'
   
 
