@@ -27,7 +27,7 @@ async function saveRenderedPages(baseURL, routes) {
     }
   }
   
-  const baseURL = 'http://host.docker.internal:3000'; // Your app's URL
+  const baseURL = 'http://127.0.0.1:3000'; // Your app's URL
   const routes = ['home', 'about', 'privacy', 'features', 'terms']; // 'home' represents the root route '/'
   
 
