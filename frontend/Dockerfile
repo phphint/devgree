@@ -35,4 +35,4 @@ RUN apt-get update && apt-get install -y \
 
 # Your other Dockerfile commands...
 
-CMD ["/bin/sh", "-c", "if [ \"$NODE_ENV\" = 'production' ]; then ./build_script.sh && node server.js && ./build_script_puppeteer.sh; else npm start; fi"]
+CMD ["/bin/sh", "-c", "if [ \"$NODE_ENV\" = 'production' ]; then ./build_script.sh && node server.js; else npm start; fi"]

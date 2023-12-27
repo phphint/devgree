@@ -6,6 +6,8 @@ const fs = require('fs');
 const path = require('path');
 const compression = require('compression');
 const botUserAgents = require('./botUserAgents');
+const { exec } = require('child_process');
+
 //const UserPortfolioContainer = require('./server-build/components/UserPortfolio/UserPortfolioContainer');
 //const fetchDataForPortfolio = require('./server-build/components/UserPortfolio/userPortfolioThunks');
 
@@ -123,3 +125,22 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+// Function to run build_script_puppeteer.sh
+function runPuppeteerScript() {
+  exec('./build_script_puppeteer.sh', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing script: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`Script stderr: ${stderr}`);
+      return;
+    }
+    console.log(`Script output: ${stdout}`);
+  });
+}
+
+// You can call this function at the appropriate place in your server.js
+runPuppeteerScript();
