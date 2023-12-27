@@ -93,8 +93,12 @@ app.get('*', (req, res) => {
     console.log(`Serving pre-rendered file for route: ${route}`);
 
     const htmlFilePath = path.join(__dirname, 'rendered', `${route}.html`);
+    console.log(`HTML File Path: ${htmlFilePath}`);
+
     
     if (fs.existsSync(htmlFilePath)) {
+      console.log(`HTML file exists: ${htmlFilePath}`);
+
       let htmlContent = fs.readFileSync(htmlFilePath, 'utf8');
       //console.log("Original HTML Content: ", htmlContent); // Log original content
 
@@ -103,9 +107,13 @@ app.get('*', (req, res) => {
 
       res.send(htmlContent);
     } else {
+      console.error(`HTML file does not exist: ${htmlFilePath}`);
+
       res.status(404).send('Page not found');
     }
   } else {
+    console.log(`Serving index.html for non-bot user.`);
+
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   }
 });
