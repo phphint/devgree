@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from 'react';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../reducers/authSlice.js"; // Adjust the import path as necessary
@@ -8,7 +8,8 @@ import { ReactComponent as Logo } from "../logo4.svg"; // Logo import
 import arrowDownImage from "../assets/images/arrow_page_down_banner.png"; // Import the arrow image
 import NavMenu from "./NavMenu"; // Import NavBar component
 
-import AuthModals from "./AuthModals"; // Import AuthModals component
+const AuthModals = React.lazy(() => import('./AuthModals'));
+
 
 
 const FullHeightBanner = () => {
@@ -39,7 +40,9 @@ const FullHeightBanner = () => {
           </Col>
           <Col md={6} style={{ backgroundColor: "#1e293f", padding: "5px" }}>
             <NavMenu></NavMenu>
-            <AuthModals />
+            <Suspense fallback={<div>Loading...</div>}>
+          <AuthModals />
+        </Suspense>
 
           </Col>
         </Row>
@@ -150,7 +153,7 @@ const FullHeightBanner = () => {
       {/* Scroll Down Arrow */}
     {/* Scroll Down Arrow */}
 <a href="#featuresBlock" className="scroll-down-arrow" aria-label="Scroll down to features">
-  <img src={arrowDownImage} alt="Scroll down to see features" />
+<img src={arrowDownImage} alt="Scroll down to see features" style={{ width: '73px', height: '73px' }} />
 </a>
     </div>
   );

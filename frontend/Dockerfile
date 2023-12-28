@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y \
     libgbm1 \
     --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
+
 # Copy package.json and package-lock.json
 #COPY package*.json ./
 

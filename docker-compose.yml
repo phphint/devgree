@@ -53,6 +53,7 @@ services:
       - REACT_APP_DEBUG
       - REACT_APP_BASE_URL
       - REACT_APP_RECAPTCHA_SITE_KEY
+      - FORCE_SSR
 
   mongodb:
     networks:

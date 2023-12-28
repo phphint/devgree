@@ -8,6 +8,8 @@ mongodb-data/
 
 # System files
 .DS_Store
-
+minio-data
+frontend/node_modules/.package-lock.json
+frontend/build/
 
 .env

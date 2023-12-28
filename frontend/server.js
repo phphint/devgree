@@ -1,73 +1,109 @@
 // server.js
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const ReactDOMServer = require("react-dom/server");
 const fs = require("fs");
 const path = require("path");
 const compression = require("compression");
 const botUserAgents = require("./botUserAgents");
 const { exec } = require("child_process");
 
-//const UserPortfolioContainer = require('./server-build/components/UserPortfolio/UserPortfolioContainer');
-//const fetchDataForPortfolio = require('./server-build/components/UserPortfolio/userPortfolioThunks');
+// Import userPortfolioThunks
+const { fetchPortfolioData } = require('./portfolioService');
+
+
+const isSSREnabled = process.env.FORCE_SSR === "true"; // Check if FORCE_SSR environment variable is set to 'true'
 
 const buildPath = path.join(__dirname, "build", "static", "js");
 const jsFiles = fs
   .readdirSync(buildPath)
   .filter((file) => file.endsWith(".js"));
 
-// Path to the asset-manifest.json file
+const cssFiles = fs
+  .readdirSync(buildPath)
+  .filter((file) => file.endsWith(".css"));
+
 // Path to the asset-manifest.json file
 const manifestPath = path.join(__dirname, "build", "asset-manifest.json");
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 
 // Function to replace asset paths in HTML content
 function replaceAssetPaths(htmlContent, manifest) {
-  console.log("replaceAssetPaths called");
-  console.log("Manifest files:", manifest.files);
-
-  // Regular expression patterns for main.js and main.css
-  const jsPattern = /\/static\/js\/main\.[a-z0-9]+\.js/g;
-  const cssPattern = /\/static\/css\/main\.[a-z0-9]+\.css/g;
-
-  // Replace js and css paths
-  htmlContent = htmlContent.replace(jsPattern, manifest.files["main.js"]);
-  htmlContent = htmlContent.replace(cssPattern, manifest.files["main.css"]);
-
+  // Replace paths for all script and link tags
+  Object.keys(manifest.files).forEach(key => {
+    if (key.endsWith('.js')) {
+      htmlContent = htmlContent.replace(new RegExp(`/static/js/${key}`, 'g'), manifest.files[key]);
+    }
+    if (key.endsWith('.css')) {
+      htmlContent = htmlContent.replace(new RegExp(`/static/css/${key}`, 'g'), manifest.files[key]);
+    }
+  });
   return htmlContent;
 }
+
 
 const app = express();
 app.use(compression());
 app.use(cookieParser());
 
-// Path to the asset-manifest.json file
+app.get("/portfolio/:id", async (req, res) => {
+  if (isSSREnabled) {
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1]; // Assuming format: Authorization: Bearer <token>
+    let profileData;
 
-//app.get('/portfolio/:id', async (req, res) => {
-//  const token = req.cookies.authToken; // Read token from cookies
-//  const data = await fetchDataForPortfolio(req.params.id, token);
-//  const React = require('react');
-//  const reactComponent = ReactDOMServer.renderToString(
-//    React.createElement(UserPortfolioContainer, { data: data })
-//  );
+    try {
+      // Fetch data and assign it to profileData variable
+      profileData = await fetchPortfolioData(req.params.id, token);
+      console.log('Fetched profile data:', profileData); // Temporary log for debugging
+    } catch (error) {
+      console.error("Error fetching portfolio:", error);
+      return res.status(500).send('Error fetching portfolio data'); // Error response
+    }
 
-// ... Return the SSR HTML ...
+  
 
-//res.send(`
-// <!doctype html>
-// <html>
-//   <head>
-//     <title>Portfolio</title>
-//      ${cssFiles.map(file => `<link rel="stylesheet" href="/static/css/${file}">`).join('\n')}
-////      ${jsFiles.map(file => `<script src="/static/js/${file}"></script>`).join('\n')}
-//   </head>
-// //   <body>
-//     <div id="app">${reactComponent}</div>
-//  </body>
-//</html>
-//`);
+    // SSR logic when FORCE_SSR is enabled
+    const generateMetaTags = (profileData) => {
+      const description = `Portfolio of ${profileData.profile.fullName}`;
+      const keywords = "portfolio, skills, achievements, testimonials";
+      return `
+        <meta name="description" content="${description}">
+        <meta name="keywords" content="${keywords}">
+        <meta property="og:title" content="${profileData.profile.fullName}'s Portfolio">
+        <meta property="og:description" content="${description}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="${req.originalUrl}">
+        <meta property="og:image" content="/static/logo512.png"> <!-- Replace with actual image path -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="${profileData.profile.fullName}'s Portfolio">
+        <meta name="twitter:description" content="${description}">
+        <meta name="twitter:image" content="/static/logo512.png"> <!-- Replace with actual image path -->
+      `;
+    };
 
-//});
+    // ... Generate minimal HTML with meta tags ...
+    let htmlContent = `
+    <!doctype html>
+    <html>
+    <head>
+      <title>Portfolio - ${profileData.profile.fullName}</title>
+      ${generateMetaTags(profileData)}
+      ${Object.keys(manifest.files).filter(key => key.endsWith('.css')).map(key => `<link rel="stylesheet" href="${manifest.files[key]}">`).join('\n')}
+    </head>
+    <body>
+      <div id="root"></div>
+      ${Object.keys(manifest.files).filter(key => key.endsWith('.js')).map(key => `<script src="${manifest.files[key]}"></script>`).join('\n')}
+    </body>
+    </html>
+  `;
+
+  htmlContent = replaceAssetPaths(htmlContent, manifest);
+  res.send(htmlContent);
+  } else {
+    // Serve the standard single-page app version
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  }
+});
 
 app.use(express.static(path.join(__dirname, "build")));
 app.use("/static", express.static(path.join(__dirname, "build", "static")));
@@ -80,7 +116,7 @@ app.get("*", (req, res) => {
 
   const isBot = botUserAgents.some((botAgent) => userAgent.includes(botAgent));
 
-  if (!isBot) {
+  if (isBot || isSSREnabled) {
     const route = req.path === "/" ? "home" : req.path.substring(1);
     console.log(`Serving pre-rendered file for route: ${route}`);
 
@@ -100,7 +136,7 @@ app.get("*", (req, res) => {
     } else {
       console.error(`HTML file does not exist: ${htmlFilePath}`);
 
-      res.status(404).send("Page not found");
+      // res.status(404).send("Page not found");
     }
   } else {
     console.log(`Serving index.html for non-bot user.`);
