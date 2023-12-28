@@ -11,7 +11,7 @@ async function renderPage(url) {
   const page = await browser.newPage();
   try {
     console.log(`Navigating to ${url}`);
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 2000 }); // 60 seconds
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 12000 }); // 60 seconds
     console.log(`Page loaded: ${url}`);
     const content = await page.content();
     await browser.close();
@@ -38,7 +38,7 @@ async function saveRenderedPages(baseURL, routes) {
   }
 }
 
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://www.devgree.com';
 const routes = ['home', 'about', 'privacy', 'features', 'terms'];
 
 saveRenderedPages(baseURL, routes).then(() => console.log('Pages rendered successfully'));
