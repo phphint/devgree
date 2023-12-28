@@ -38,7 +38,7 @@ async function saveRenderedPages(baseURL, routes) {
   }
 }
 
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://www.devgree.com';
 const routes = ['home', 'about', 'privacy', 'features', 'terms'];
 
 saveRenderedPages(baseURL, routes).then(() => console.log('Pages rendered successfully'));
