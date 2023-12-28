@@ -40,7 +40,6 @@ function checkSSREnabled() {
   return false;
 }
 
-let isSSREnabled = process.env.FORCE_SSR === 'true' && checkSSREnabled();
 
 const buildPath = path.join(__dirname, "build", "static", "js");
 const jsFiles = fs
@@ -75,6 +74,7 @@ app.use(compression());
 app.use(cookieParser());
 
 app.get("/portfolio/:id", async (req, res) => {
+  
   if (isSSREnabled) {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1]; // Assuming format: Authorization: Bearer <token>
@@ -139,6 +139,9 @@ app.use("/static", express.static(path.join(__dirname, "build", "static")));
 
 app.get("*", (req, res) => {
   console.log(`Wildcard handler hit for path: ${req.path}`);
+  const isSSREnabled = process.env.FORCE_SSR === 'true' && checkSSREnabled();
+  console.log(`isSSREnabled: ${isSSREnabled}`);
+
 
   const userAgent = req.headers["user-agent"].toLowerCase();
   console.log(`User Agent: ${userAgent}`);
