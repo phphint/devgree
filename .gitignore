@@ -11,5 +11,6 @@ mongodb-data/
 minio-data
 frontend/node_modules/.package-lock.json
 frontend/build/
+frontend/rendered/
 
 .env
