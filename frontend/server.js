@@ -146,9 +146,12 @@ app.get("*", (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  runPuppeteerScript(); // Call the function here
 });
+
+
 
 // Function to run build_script_puppeteer.sh
 function runPuppeteerScript() {
@@ -165,5 +168,4 @@ function runPuppeteerScript() {
   });
 }
 
-// You can call this function at the appropriate place in your server.js
-runPuppeteerScript();
+ 

@@ -4,7 +4,7 @@ const path = require('path');
 
 async function renderPage(url) {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: "new",
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
