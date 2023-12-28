@@ -74,8 +74,10 @@ app.use(compression());
 app.use(cookieParser());
 
 app.get("/portfolio/:id", async (req, res) => {
-  
+  const isSSREnabled = process.env.FORCE_SSR === 'true';
+
   if (isSSREnabled) {
+
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1]; // Assuming format: Authorization: Bearer <token>
     let profileData;
