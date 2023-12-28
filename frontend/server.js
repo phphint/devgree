@@ -9,37 +9,10 @@ const { exec } = require("child_process");
 
 // Import userPortfolioThunks
 const { fetchPortfolioData } = require('./portfolioService');
+const isSSREnabled = process.env.FORCE_SSR === 'true';
 
 
-
-function checkSSREnabled() {
-  const renderedPath = path.join(__dirname, 'rendered');
-  if (!fs.existsSync(renderedPath)) {
-    return false;
-  }
-
-  const files = fs.readdirSync(renderedPath);
-  if (files.length === 1 && files[0] === 'index.html') {
-    // If there is only index.html, disable SSR
-    return false;
-  }
-
-  const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
-  for (const file of files) {
-    if (file !== 'index.html' && file.endsWith('.html')) {
-      const filePath = path.join(renderedPath, file);
-      const stats = fs.statSync(filePath);
-      if (stats.mtime >= oneMinuteAgo) {
-        // If there is a recent HTML file other than index.html, enable SSR
-        return true;
-      }
-    }
-  }
-
-  // If there are no recent HTML files other than index.html, disable SSR
-  return false;
-}
-
+ 
 
 const buildPath = path.join(__dirname, "build", "static", "js");
 const jsFiles = fs
@@ -74,7 +47,6 @@ app.use(compression());
 app.use(cookieParser());
 
 app.get("/portfolio/:id", async (req, res) => {
-  const isSSREnabled = process.env.FORCE_SSR === 'true';
 
   if (isSSREnabled) {
 
@@ -141,8 +113,7 @@ app.use("/static", express.static(path.join(__dirname, "build", "static")));
 
 app.get("*", (req, res) => {
   console.log(`Wildcard handler hit for path: ${req.path}`);
-  const isSSREnabled = process.env.FORCE_SSR === 'true' && checkSSREnabled();
-  console.log(`isSSREnabled: ${isSSREnabled}`);
+   console.log(`isSSREnabled: ${isSSREnabled}`);
 
 
   const userAgent = req.headers["user-agent"].toLowerCase();
