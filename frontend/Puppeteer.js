@@ -11,7 +11,7 @@ async function renderPage(url) {
   const page = await browser.newPage();
   try {
     console.log(`Navigating to ${url}`);
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 }); // 60 seconds
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 2000 }); // 60 seconds
     console.log(`Page loaded: ${url}`);
     const content = await page.content();
     await browser.close();

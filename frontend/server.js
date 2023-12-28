@@ -11,7 +11,28 @@ const { exec } = require("child_process");
 const { fetchPortfolioData } = require('./portfolioService');
 
 
-const isSSREnabled = process.env.FORCE_SSR === "true"; // Check if FORCE_SSR environment variable is set to 'true'
+
+function checkRenderedFiles() {
+  const renderedPath = path.join(__dirname, 'rendered');
+  if (!fs.existsSync(renderedPath)) {
+    return false;
+  }
+
+  const files = fs.readdirSync(renderedPath);
+  const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+
+  return files.some(file => {
+    if (file === 'index.html' || !file.endsWith('.html')) {
+      return false;
+    }
+
+    const filePath = path.join(renderedPath, file);
+    const stats = fs.statSync(filePath);
+    return stats.mtime >= oneMinuteAgo;
+  });
+}
+
+let isSSREnabled = process.env.FORCE_SSR === 'true' && !checkRenderedFiles();
 
 const buildPath = path.join(__dirname, "build", "static", "js");
 const jsFiles = fs
