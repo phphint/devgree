@@ -12,27 +12,35 @@ const { fetchPortfolioData } = require('./portfolioService');
 
 
 
-function checkRenderedFiles() {
+function checkSSREnabled() {
   const renderedPath = path.join(__dirname, 'rendered');
   if (!fs.existsSync(renderedPath)) {
     return false;
   }
 
   const files = fs.readdirSync(renderedPath);
+  if (files.length === 1 && files[0] === 'index.html') {
+    // If there is only index.html, disable SSR
+    return false;
+  }
+
   const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
-
-  return files.some(file => {
-    if (file === 'index.html' || !file.endsWith('.html')) {
-      return false;
+  for (const file of files) {
+    if (file !== 'index.html' && file.endsWith('.html')) {
+      const filePath = path.join(renderedPath, file);
+      const stats = fs.statSync(filePath);
+      if (stats.mtime >= oneMinuteAgo) {
+        // If there is a recent HTML file other than index.html, enable SSR
+        return true;
+      }
     }
+  }
 
-    const filePath = path.join(renderedPath, file);
-    const stats = fs.statSync(filePath);
-    return stats.mtime >= oneMinuteAgo;
-  });
+  // If there are no recent HTML files other than index.html, disable SSR
+  return false;
 }
 
-let isSSREnabled = process.env.FORCE_SSR === 'true' && !checkRenderedFiles();
+let isSSREnabled = process.env.FORCE_SSR === 'true' && checkSSREnabled();
 
 const buildPath = path.join(__dirname, "build", "static", "js");
 const jsFiles = fs
